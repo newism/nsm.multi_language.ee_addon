@@ -91,10 +91,13 @@ class Nsm_multilanguage
 					if (file_exists($requested_language_file_path) !== FALSE)
 					{
 						include_once($requested_language_file_path);
-						$languages_cache[$requested_language_id] = $L;
-						$requested_language_dictionary = $languages_cache[$requested_language_id];
-						unset($language_info);
-						unset($L);
+						if (isset($L))
+						{
+							$languages_cache[$requested_language_id] = $L;
+							$requested_language_dictionary = $languages_cache[$requested_language_id];
+							unset($language_info);
+							unset($L);
+						}
 					}
 				}
 			}
