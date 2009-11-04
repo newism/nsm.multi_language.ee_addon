@@ -1,0 +1,6 @@
+[submodule "docs/assets/nsm.documentation_assets"]
+	path = docs/assets/nsm.documentation_assets
+	url = git://github.com/newism/nsm.documentation_assets.git
+[submodule "docs/assets/nsm.toc.jquery_plugin"]
+	path = docs/assets/nsm.toc.jquery_plugin
+	url = git://github.com/newism/nsm.toc.jquery_plugin.git

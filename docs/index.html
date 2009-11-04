@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>NSM Multi Language</title>
+	<link rel="stylesheet" href="assets/nsm.documentation_assets/css/screen.css" type="text/css" charset="utf-8">
+</head>
+<body>
+	<div id="doc">
+		<div id="content">
+			<h1 class='page-title'><strong>NSM Multi Language <small>v</small>2.0.0</strong> <span>Add simple and easy multiple language support to your ExpressionEngine 2 templates</span></h1>
+			<p>
+				NSM Multi Language is an <a href="http://www.expressionengine.com/index.php?affiliate=newism" rel="external">ExpressionEngine</a>
+				<a href="http://www.expressionengine.com/index.php?affiliate=newism&amp;page=/downloads/addons/category/extensions/">extension</a> and plugin combination that adds simple multiple language support to your ExpressionEngine templates. Language is determined by either sub-domain or url segment and can be used to display language specific custom fields and phrases.
+			</p>
+
+			<h2 id="requirements">Requirements</h2>
+			<p>NSM Multi Language is an ExpressionEngine <a href="http://www.expressionengine.com/index.php?affiliate=leevi&amp;page=/downloads/addons/category/extensions/">extension</a> / <a href="http://www.expressionengine.com/index.php?affiliate=leevi&amp;page=/downloads/addons/category/plugins/">plugin</a> combination and has been tested on <a href="http://www.expressionengine.com/index.php?affiliate=leevi">ExpressionEngine 2.0+</a>.</p>
+			
+			<h2 id="installation">Installation</h2>
+			<p>The NSM Multi Language addon download contains a system folder ( third_party &amp; language folders) and three simple example <a href="#creating-a-language-file">language files</a> which is used for phrase translations. To install the addon follow the instructions below:</p>
+			<ol>
+			    <li><a href="#download">Download the latest version of the extension</a></li>
+			    <li>Extract the .zip file to your desktop</li>
+			    <li>Copy the <code>system/expressionengine/third_party/nsm_multilanguage</code> directory to your <code>/system/expressionengine/third_party/</code> directory</li>
+			    <li>Copy the <code>system/expressionengine/language/nsm.languages</code> directory to your <code>/system/expressionengine/language/</code> directory</li>
+			</ol>
+			
+			<h2 id='activation'>Activation</h2>
+			<p>This extension has no special activation requirements. To activate:</p>
+			<ol>
+			    <li>Log in to your site control panel</li>
+			    <li>Open the <a href='http://www.expressionengine.com/index.php?affiliate=leevi&amp;page=/docs/cp/admin/utilities/extension_manager.html'>Extensions Manager</a></li>
+			    <li><strong>Enable Extensions</strong> if not already enabled</li>
+			    <li><strong>Enable</strong> the NSM Multi Language extension</li>
+			    <li>Update the <strong>extension settings</strong>.</li>
+			</ol>
+			<h2 id="configuration">Configuration</h2>
+			<h3 id="configuration:extension-settings">Extension Settings</h3>
+			<p> NSM Multi Language has two extension settings.</p>
+			<ol>
+			    <li><a href='#configuration:extension-settings:default-language'>Default Language</a></li>
+			    <li><a href='#configuration:extension-settings:languages-directory'>Languages Directory</a></li>
+			</ol>
+
+			<h5 id="configuration:extension-settings:default-language">Default language <small>[required]</small></h5>
+			<pre><kbd>en-US</kbd></pre>
+			<p>The default language to use if no language can be determined by the URL. </p>
+			
+			<h5 id="configuration:extension-settings:languages-directory">Languages directory <small>[required]</small></h5>
+			<pre><kbd>/PATH/TO/YOUR/WEBSITE/system/expressionengine/language/nsm.languages/</kbd></pre>
+			<p>The path where your language translation files are stored. The name of the files stored in this directory should be the same as the language abbreviation - ie. 'en-US.php', 'en-AU.php', 'fr.php'.</p>
+			
+			<h2 id='user-guide'>User Guide</h2>
+			<p>NSM Multi Language uses <a href="#user-guide:which-language">simple URL parsing</a> to determine the template language.</p>
+			<p>System administrators determine the available languages in the <a href="configuration:extension-settings:languages">extension settings</a> and these are the languages that are used for URL parsing. If no language is parsed from the URL then the <a href="configuration:extension-settings:default-language">default language</a> will be assigned to the global <code>&#123;lg_lang&#125;</code> and <code>&#123;lg_lang_title&#125;</code> global variables.</p>
+
+			<h3 id="user-guide:which-language">Which language?</h3>
+			<p>The assigned language is determined by parsing the template URL for the available language translations in the <a href="#configuration:extension-settings:languages-directory">extension settings</a>. NSM Multi Language checks the <a href="#user-guide:which-language:sub-domain">sub-domain</a> and <a href="#user-guide:which-language:url-segments">URL segments</a> for a matching translation file.</p>
+			
+			<h4 id="user-guide:which-language:sub-domain">Sub-Domain</h4>
+			<p>The first sub-domain will be compared to the available language translation files in the <a href="#configuration:extension-settings:languages">languages directory</a> before any URL segments are parsed.</p>
+
+			<h4 id="user-guide:which-language:url-segments">URL segments</h4>
+			<p>Both the first and last url segments will be compared to the available language translation files in the <a href="#configuration:extension-settings:languages">languages directory</a> after the <a href="#user-guide:which-language:sub-domain">sub-domain</a> has been checked.</p>
+			<p>If a match is made the segment will be removed from the segment global variables and ignored by future ExpressionEngine processing. This is necessary so ExpressionEngine handles template rendering correctly.</p>
+			<p>Example: Parsing <samp>http://my-site.com/it/blog/post/12</samp> against <samp>en|it|jp</samp> will assign <var>it</var> to <code>&#123;lg_lang&#125;</code> and <var>italian</var> to <code>&#123;lg_lang_title&#125;</code>. <code>&#123;segment_1&#125;</code> will now equal blog, <code>&#123;segment_2&#125;</code> = post and <code>&#123;segment_3&#125;</code> = 12.</p>
+
+
+			<h3 id="user-guide:displaying-translated-content">Displaying translated content</h3>
+			<p>Translated content can be displayed using either of the following methods:</p>
+			<ol>
+			    <li><a href="#user-guide:displaying-translated-content:global-variables">Global variables</a></li>
+			    <li><a href="#user-guide:displaying-translated-content:plugin">Plugin</a></li>
+			</ol>
+			<h4 id="user-guide:displaying-translated-content:global-variables">Global variables</h4>
+			<p>LG Multi Language sets two global variables: <code>&#123;lg_lang&#125;</code> &amp; <code>&#123;lg_lang_title&#125;</code> that are rendered before any other tags. These global variables can be used to create dynamic template tags like <code>&#123;body_&#123;lg_lang&#125;&#125;</code> and <code>&#123;title_&#123;lg_lang&#125;&#125;</code>.</p>
+			<h5>Setting up custom fields for each language</h5>
+			<p>The preferred method of entering multiple language data is to use a multiple custom fields in a single entry.</p>
+			<ol>
+				<li>Create a new weblog called "Blog"</li>
+				<li>Create a new custom field group with the following two custom fields and assign it to a weblog:
+					<ol>
+						<li><strong>English</strong> content:
+							<ul>
+								<li>Title: EN Body</li>
+								<li>Short name: body_en</li>
+								<li>Instructions: English content for the entry.</li>
+							</ul>
+						</li>
+						<li><strong>Italian</strong> content:
+							<ul>
+								<li>Title: IT Body</li>
+								<li>Short name: body_it</li>
+								<li>Instructions: Italian content for the entry.</li>
+							</ul>
+						</li>
+					</ol>
+				</li>
+				<li>Assign the custom field group to the weblog</li>
+				<li>Publish a new entry adding both English and Italian content</li>
+			</ol>
+			<h5>Displaying language specific content</h5>
+
+			<h4 id="user-guide:displaying-translated-content:plugin">Plugin</h4>
+
+
+
+<!--
+
+			<h4 id="conditionals">Conditional Global Variables</h4>
+			<p>Once LG Multi Language has determined the language from its abbreviation the value is can be accessed using the <code></code> global variable. This variable can be used in standard <a href="http://www.expressionengine.com/index.php?affiliate=leevi&amp;page=/docs/templates/globals/conditionals.html">ExpressionEngine conditional template queries</a>. This is demonstrated below:</p>
+			<pre><code>&#123;if lg_lang == 'jp'&#125;
+			  Japanese content
+			&#123;if:elseif lg_lang == 'it'&#125;
+			  Italian content
+			&#123;if:else&#125;
+			  Default content
+			&#123;if&#125;</code></pre>
+			<h4 id="lg-ml-plugin">LG Ml plugin</h4>
+			<p>The LG Ml plugin only has one method <em>translate</em> that accepts one parameter "p" which the the text you wish to have translated. An example of usage is provided below:</p>
+			<pre><code>&#123;exp:lg_ml:translate p="The phrase you would like translated"&#125;</code></pre>
+			<p>The plugin will check the required <a href="#creating-a-language-file">language file</a> and replace the text if a translation is available. If no translation is available the original phrase will be rendered.</p>
+			<h3 id="creating-a-language-file">Creating a language file</h3>
+			<p>Language files are used by the &#123;exp:lg_ml:translate&#125; plugin to translate pieces of text such as category names, menu titles or page headings.</p>
+			<p>The language file must be placed in your  template_base_path/language folder in your ExpressionEngine installation and use the following naming convention: lang.your-language-abbreviation.php. A sample language file has been provided in the <a href="#download">download</a>.</p>
+			<p>The <a href="http://expressionengine.com/docs/cp/templates/global_template_preferences.html template_base_path">template_base_path is set in your ExpressionEngine administration</a>.</p>
+			<h4>Language file format</h4>
+			<p>The language file follows the same format as the standard ExpressionEngine language files. The file must consist of one associative array called $L. An example is provided below:</p>
+			<pre><code>&lt;?php $L = array(
+				"original phrase" => "translated phrase",
+				"original phrase 2" => "translated phrase 2"
+			)
+			?&gt;</code></pre>-->
+			<h2 id='tag-reference'>
+			Tag Reference
+			</h3>
+			<h3 id='lg-ml'>LG Ml</h3>
+			<p>&#123;exp:lg_ml&#125; has the following methods and parameters:</p>
+			<ol>
+			    <li><a href="#lg-ml-methods">Methods</a></li>
+			    <li><a href="#lg-ml-parameters">Parameters</a></li>
+			</ol>
+			<h4 id='lg-ml-methods'>Methods</h4>
+			<ol>
+			    <li><a href="#lg-ml-methods-translate">translate</a></li>
+			</ol>
+			<h5 id="lg-ml-methods-translate">&#123;exp:lg_ml:translate&#125;</h5>
+			<pre><code>&#123;exp:lg_ml:translate p="The phrase you would like translated"&#125;</code></pre>
+			<p>Takes the "p" parameter and if the language file contains the phrase translates it. If no translation is available the original phrase will be rendered.</p>
+			<h4 id="lg-ml-parameters">Parameters</h4>
+			<ol>
+			    <li><a href="#lg-ml-parameters-p">p=</a></li>
+			</ol>
+			<h5 id="lg-ml-parameters-p">p= <small>[required in <code>&#123;exp:lg_ml:translate&#125;</code>]</small></h5>
+			<pre><code>p="The phrase you would like translated"</code></pre>
+			<p>The phrase you would like translated. The phrase must have an entry in the language file to be translated.</p>
+			<h2 id='change-log'>Change Log</h2>
+			<h3>1.0.0</h3>
+			<ul>
+			    <li>Initial Release</li>
+			</ul>
+			<h2 id='license'>License</h2>
+			<p>LG Multi Language is a commercial product and therefore its usage is subject to the <a href="/cms-customisation/commercial-license-agreement">commercial license agreement</a>.</p>
+				</div>
+		<div id="sub-content">
+			<div id="toc"></div>
+		</div>
+	</div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/nsm.toc.jquery_plugin/jquery-nsm_TOC.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		$("body").nsm_TOC({
+			generate_toc:	true,
+			toc_el:			"#toc",
+			toc_title:		false,
+			min_depth:		2,
+			max_depth:		4
+		});
+		$('a[rel="external"]').click( function() {
+			window.open( $(this).attr('href') );
+			return false;
+		});
+	</script>
+</body>
+</html>
