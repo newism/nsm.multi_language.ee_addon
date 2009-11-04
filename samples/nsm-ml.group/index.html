@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{exp:nsm_multilanguage:translate key="my_article_title" default="Cellphones are lots of fun!"}</title>
+</head>
+
+<body>
+	<h1>{exp:nsm_multilanguage:translate key="my_article_title" default="Cellphones are lots of fun!"}</h1>
+	<p>{exp:nsm_multilanguage:translate key="my_article_body" default="Hello! This is an article about cellphones"}</p>
+	
+	<p><small>Current language is {nsm_lang_title} ({nsm_lang}).</small></p>
+	<ul>
+		<li><a href="/index.php?/nsm-ml/">{exp:nsm_multilanguage:translate key="my_article_title"}</a> &mdash; User Default</li>
+		<li><a href="/index.php?/en-US/nsm-ml/">{exp:nsm_multilanguage:translate key="my_article_title" language="en-US"}</a> &mdash; US English</li>
+		<li><a href="/index.php?/en-AU/nsm-ml/">{exp:nsm_multilanguage:translate key="my_article_title" language="en-AU"}</a> &mdash; Australian English</li>
+		<li><a href="/index.php?/fr/nsm-ml/">{exp:nsm_multilanguage:translate key="my_article_title" language="fr"}</a> &mdash; French</li>
+	</ul>
+
+</body>
+</html>

@@ -83,7 +83,6 @@ class Nsm_multilanguage
 				// Load the translation from disk
 				$language_path = isset($this->EE->config->_global_vars['nsm_lang_path']) ? $this->EE->config->_global_vars['nsm_lang_path'] : FALSE;
 
-
 				if ($language_path !== FALSE)
 				{
 					$requested_language_file_path = $language_path . '/' . $requested_language_id . '.php';

@@ -9,7 +9,9 @@ $language_info = array(
 
 
 $L = array(
-	"Hello" => "G'Day!"
+	'Hello' => "G&rsquo;Day!",
+	'my_article_title' => 'Mobile phones are lots of fun!',
+	'my_article_body' => "G&rsquo;day! This is an article about mobile phones.",
 );
 
 ?>
