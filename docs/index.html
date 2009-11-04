@@ -62,9 +62,8 @@
 			<p>The first sub-domain will be compared to the available language translation files in the <a href="#configuration:extension-settings:languages">languages directory</a> before any URL segments are parsed.</p>
 
 			<h4 id="user-guide:which-language:url-segments">URL segments</h4>
-			<p>Both the first and last url segments will be compared to the available language translation files in the <a href="#configuration:extension-settings:languages">languages directory</a> after the <a href="#user-guide:which-language:sub-domain">sub-domain</a> has been checked.</p>
-			<p>If a match is made the segment will be removed from the segment global variables and ignored by future ExpressionEngine processing. This is necessary so ExpressionEngine handles template rendering correctly.</p>
-			<p>Example: Parsing <samp>http://my-site.com/it/blog/post/12</samp> against <samp>en|it|jp</samp> will assign <var>it</var> to <code>&#123;lg_lang&#125;</code> and <var>italian</var> to <code>&#123;lg_lang_title&#125;</code>. <code>&#123;segment_1&#125;</code> will now equal blog, <code>&#123;segment_2&#125;</code> = post and <code>&#123;segment_3&#125;</code> = 12.</p>
+			<p>The first URL segment will be compared to the available language translation files in the <a href="#configuration:extension-settings:languages">languages directory</a> after the <a href="#user-guide:which-language:sub-domain">sub-domain</a> has been checked.</p>
+			<p>If a match is made the URL segment will be removed from the segment global variables and ignored by future ExpressionEngine processing. This is necessary so ExpressionEngine handles template rendering correctly.</p>
 
 
 			<h3 id="user-guide:displaying-translated-content">Displaying translated content</h3>
@@ -74,7 +73,7 @@
 			    <li><a href="#user-guide:displaying-translated-content:plugin">Plugin</a></li>
 			</ol>
 			<h4 id="user-guide:displaying-translated-content:global-variables">Global variables</h4>
-			<p>LG Multi Language sets two global variables: <code>&#123;lg_lang&#125;</code> &amp; <code>&#123;lg_lang_title&#125;</code> that are rendered before any other tags. These global variables can be used to create dynamic template tags like <code>&#123;body_&#123;lg_lang&#125;&#125;</code> and <code>&#123;title_&#123;lg_lang&#125;&#125;</code>.</p>
+			<p>NSM Multi Language sets three global variables: <code>&#123;nsm_lang&#125;</code>, <code>&#123;nsm_lang_title&#125;</code>  &amp; <code>&#123;nsm_lang_path&#125;</code> that are rendered before any other tags. These global variables can be used to create dynamic template tags like <code>&#123;body_&#123;nsm_lang&#125;&#125;</code> and <code>&#123;title_&#123;nsm_lang&#125;&#125;</code>.</p>
 			<h5>Setting up custom fields for each language</h5>
 			<p>The preferred method of entering multiple language data is to use a multiple custom fields in a single entry.</p>
 			<ol>
@@ -83,22 +82,22 @@
 					<ol>
 						<li><strong>English</strong> content:
 							<ul>
-								<li>Title: EN Body</li>
-								<li>Short name: body_en</li>
-								<li>Instructions: English content for the entry.</li>
+								<li>Title: US English Body</li>
+								<li>Short name: body_en-US</li>
+								<li>Instructions: US English content for the entry.</li>
 							</ul>
 						</li>
-						<li><strong>Italian</strong> content:
+						<li><strong>French</strong> content:
 							<ul>
-								<li>Title: IT Body</li>
-								<li>Short name: body_it</li>
-								<li>Instructions: Italian content for the entry.</li>
+								<li>Title: French Body</li>
+								<li>Short name: body_fr</li>
+								<li>Instructions: French content for the entry.</li>
 							</ul>
 						</li>
 					</ol>
 				</li>
 				<li>Assign the custom field group to the weblog</li>
-				<li>Publish a new entry adding both English and Italian content</li>
+				<li>Publish a new entry adding both English and French content</li>
 			</ol>
 			<h5>Displaying language specific content</h5>
 
@@ -135,33 +134,54 @@
 			<h2 id='tag-reference'>
 			Tag Reference
 			</h3>
-			<h3 id='lg-ml'>LG Ml</h3>
-			<p>&#123;exp:lg_ml&#125; has the following methods and parameters:</p>
+			<h3 id='nsm-multilanguage'>NSM Multi Language</h3>
+			<p>&#123;exp:nsm_multilanguage&#125; has the following methods and parameters:</p>
 			<ol>
-			    <li><a href="#lg-ml-methods">Methods</a></li>
-			    <li><a href="#lg-ml-parameters">Parameters</a></li>
+			    <li><a href="#nsm-multilanguage-methods">Methods</a></li>
+			    <li><a href="#nsm-multilanguage-parameters">Parameters</a></li>
 			</ol>
-			<h4 id='lg-ml-methods'>Methods</h4>
+			<h4 id='nsm-multilanguage-methods'>Methods</h4>
 			<ol>
-			    <li><a href="#lg-ml-methods-translate">translate</a></li>
+			    <li><a href="#nsm-multilanguage-methods-translate">translate</a></li>
 			</ol>
-			<h5 id="lg-ml-methods-translate">&#123;exp:lg_ml:translate&#125;</h5>
-			<pre><code>&#123;exp:lg_ml:translate p="The phrase you would like translated"&#125;</code></pre>
-			<p>Takes the "p" parameter and if the language file contains the phrase translates it. If no translation is available the original phrase will be rendered.</p>
-			<h4 id="lg-ml-parameters">Parameters</h4>
+			<h5 id="nsm-multilanguage-methods-translate">&#123;exp:nsm_multilanguage:translate&#125;</h5>
+			<pre><code>&#123;exp:nsm_multilanguage:translate key="The phrase you would like translated" 
+				 default="A default replacement phrase" 
+				 language="en-US"&#125;</code></pre>
+			<p>Requires the "key" parameter. If the language file contains the value of "key", it is translated. If no translation is available, the optional "default" parameter will be rendered. If that is not available, the original value of the "key" parameter will be rendered.</p>
+			
+			<h4 id="nsm-multilanguage-parameters">Parameters</h4>
 			<ol>
-			    <li><a href="#lg-ml-parameters-p">p=</a></li>
+			    <li><a href="#nsm-multilanguage-parameters-key">key</a></li>
+			    <li><a href="#nsm-multilanguage-parameters-default">default</a></li>
+			    <li><a href="#nsm-multilanguage-parameters-language">language</a></li>
 			</ol>
-			<h5 id="lg-ml-parameters-p">p= <small>[required in <code>&#123;exp:lg_ml:translate&#125;</code>]</small></h5>
-			<pre><code>p="The phrase you would like translated"</code></pre>
-			<p>The phrase you would like translated. The phrase must have an entry in the language file to be translated.</p>
+			<h5 id="nsm-multilanguage-parameters-key">key <small>[required]</small></h5>
+			<pre><code>key="The phrase you would like translated"</code></pre>
+			<p>The key for the phrase you would like translated. The key must have an entry in the language file to be translated. <em>This parameter is required.</em></p>
+			<h5 id="nsm-multilanguage-parameters-default">default</h5>
+			<pre><code>default="A default phrase, just in case."</code></pre>
+			<p>A default phrase that will be used if there is no valid translation for the requested language. <em>This parameter is optional.</em></p>
+			<h5 id="nsm-multilanguage-parameters-language">language</h5>
+			<pre><code>language="en-US"</code></pre>
+			<p>Setting this parameter will force the current usage of the <code>&#123;exp:nsm_multilanguage:translate&#125;</code> to output in the specified language. If the entered code does not exist, the <a href="#configuration:extension-settings:default-language">default language</a> will be used instead. <em>This parameter is optional.</em></p>
+			
 			<h2 id='change-log'>Change Log</h2>
+			<h3>2.0.0</h3>
+			<ul>
+				<li>This release is for ExpressionEngine 2.0. It will not function under ExpressionEngine 1.</li>
+				<li>It is no longer necessary to manually specify which languages are available for use. Simply drop a new language file into your <a href="#configuration:extension-settings:languages-directory">languages directory</a>, and it your site will immediately respond to the new language.</li>
+				<li>Two new parameters have been added:
+					<ul>
+						<li><a href="#nsm-multilanguage-parameters-default">default</a>: This parameter allows you to specify a per-tag fallback should the specified <a href="#nsm-multilanguage-parameters-key">key</a> parameter not be found.</li>
+						<li><a href="#nsm-multilanguage-parameters-language">language</a>: This parameter allows you to specify a per-tag language that overrides both the currently selected default language and that of the current page.</li>
+			</ul>
 			<h3>1.0.0</h3>
 			<ul>
 			    <li>Initial Release</li>
 			</ul>
 			<h2 id='license'>License</h2>
-			<p>LG Multi Language is a commercial product and therefore its usage is subject to the <a href="/cms-customisation/commercial-license-agreement">commercial license agreement</a>.</p>
+			<p>NSM Multi Language is a commercial product and therefore its usage is subject to the <a href="/cms-customisation/commercial-license-agreement">commercial license agreement</a>.</p>
 				</div>
 		<div id="sub-content">
 			<div id="toc"></div>
