@@ -1,6 +1,5 @@
-==============================
-= NSM Multi Language Samples =
-==============================
+NSM Multi Language Samples
+==========================
 
 This directory contains a comprehensive example template that demonstrates the NSM Multi Language extension and plugin. Simply copy the contents of the "nsm-ml.group" directory to your ExpressionEngine templates directory. By default, this is stored at:
 

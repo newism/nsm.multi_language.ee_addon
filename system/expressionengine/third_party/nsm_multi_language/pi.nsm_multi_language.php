@@ -126,5 +126,3 @@ class Nsm_multi_language
 	}
 	// END
 }
-
-?>

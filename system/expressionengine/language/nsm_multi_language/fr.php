@@ -12,5 +12,3 @@ $L = array(
 	'my_article_title' => 'Les t&eacute;l&eacute;phones mobiles sont beaucoup de plaisir!',
 	'my_article_body' => 'Bonjour! Il s&#x27;agit d&#x27;un article sur les t&eacute;l&eacute;phones mobiles.',
 );
-
-?>
