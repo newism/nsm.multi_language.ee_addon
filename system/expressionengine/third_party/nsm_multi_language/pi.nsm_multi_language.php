@@ -1,42 +1,41 @@
 <?php
 /**
-* Plugin File for NSM Multi Language
-*
-* This file must be placed in the
-* /system/expressionengine/plugins/ folder in your ExpressionEngine 2 installation.
-*
-* @package NsmMultiLanguage
-* @version 2.0.0
-* @author Leevi Graham <http://newism.com.au>
-* @see http://leevigraham.com/cms-customisation/expressionengine/addon/lg-better-meta/
-* @copyright Copyright (c) 2007-2009 Leevi Graham
-* @license http://leevigraham.com/cms-customisation/commercial-license-agreement
-*/
+ * Plugin File for NSM Multi Language
+ *
+ * @package Nsm
+ * @subpackage Multi Language
+ * @version 2.0.0
+ * @author Leevi Graham & Tony Arnold <http://newism.com.au>
+ * @copyright Copyright (c) 2007-2009 Newism
+ * @license Commercial - please see LICENSE file included with this distribution
+ * 
+ **/
 
 /**
-* Plugin information used by ExpressionEngine
-* @global array $plugin_info
-*/
+ * Plugin information used by ExpressionEngine
+ * @global array $plugin_info
+ */
 $plugin_info = array(
 	'pi_name'			=> 'NSM Multi Language',
 	'pi_version'		=> '2.0.0',
-	'pi_author'			=> 'Leevi Graham',
-	'pi_author_url'		=> 'http://leevigraham.com/',
+	'pi_author'			=> 'Leevi Graham & Tony Arnold',
+	'pi_author_url'		=> 'http://newism.com.au/',
 	'pi_description'	=> 'Translates phrases to the chosen language',
-	'pi_usage'			=> Nsm_multilanguage::usage()
+	'pi_usage'			=> Nsm_multi_language::usage()
 );
 
 /**
-* Translates phrases to the chosen language
-*
-* @package NsmMultiLanguage
-* @version 2.0.0
-* @author Leevi Graham <http://newism.com.au>
-* @see http://leevigraham.com/cms-customisation/expressionengine/addon/lg-better-meta/
-* @copyright Copyright (c) 2007-2009 Leevi Graham
-* @license http://leevigraham.com/cms-customisation/commercial-license-agreement
-*/
-class Nsm_multilanguage
+ * This ExpressionEngine plugin translates phrases to the chosen language. It requires the NSM Multi Language extension to be installed and enabled to function.
+ *
+ * @package Nsm
+ * @subpackage Multi Language
+ * @version 2.0.0
+ * @author Leevi Graham & Tony Arnold <http://newism.com.au>
+ * @copyright Copyright (c) 2007-2009 Newism
+ * @license Commercial - please see LICENSE file included with this distribution
+ * 
+ **/
+class Nsm_multi_language
 {
 
 	/**
@@ -68,7 +67,7 @@ class Nsm_multilanguage
 	public function translate()
 	{
 		$translation_key = $this->EE->TMPL->fetch_param('key');
-		$languages_cache = isset($this->EE->session->cache['nsm']['multilanguage']['languages']) ? $this->EE->session->cache['nsm']['multilanguage']['languages'] : FALSE;
+		$languages_cache = isset($this->EE->session->cache['nsm']['multi_language']['languages']) ? $this->EE->session->cache['nsm']['multi_language']['languages'] : FALSE;
 		$tag_requested_language = $this->EE->TMPL->fetch_param('language');
 		$ext_requested_language = isset($this->EE->config->_global_vars['nsm_lang']) ? $this->EE->config->_global_vars['nsm_lang'] : FALSE;
 		$requested_language_id = ($tag_requested_language !== FALSE) ? $tag_requested_language : $ext_requested_language;
@@ -123,7 +122,7 @@ class Nsm_multilanguage
 	 */
 	public function usage()
 	{
-		return "For usage visit: http://leevigraham.com/cms-customisation/expressionengine/addon/lg-multi-language/";
+		return "For usage please see the documentation attached to the original download for this extension.";
 	}
 	// END
 }

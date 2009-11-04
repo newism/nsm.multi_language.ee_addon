@@ -1,7 +1,7 @@
 <?= form_open(
-		'C=addons_extensions&M=extension_settings&file=&file=nsm_multilanguage',
+		'C=addons_extensions&M=extension_settings&file=&file=nsm_multi_language',
 		'',
-		array("file" => "nsm_multilanguage")
+		array("file" => "nsm_multi_language")
 	)
 ?>
 
@@ -25,11 +25,11 @@
 		<tbody>
 			<tr class="even">
 				<th scope="row">
-					<?= lang('nsm_multilanguage_default_language_label')?>
+					<?= lang('nsm_multi_language_default_language_label')?>
 				</th>
-				<td<?form_error('Nsm_multilanguage_ext[default_language]') ? ' class="error"' : ''?>>
-					<?= form_error('Nsm_multilanguage_ext[languages]'); ?>
-					<select name="Nsm_multilanguage_ext[default_language]" id='default_language' class='toggle'>
+				<td<?form_error('Nsm_multi_language_ext[default_language]') ? ' class="error"' : ''?>>
+					<?= form_error('Nsm_multi_language_ext[languages]'); ?>
+					<select name="Nsm_multi_language_ext[default_language]" id='default_language' class='toggle'>
 						<?php
 							$count = 0;
 
@@ -54,10 +54,10 @@
 			</tr>
 			<tr class="odd">
 				<th scope="row">
-					<?= lang('nsm_multilanguage_languages_path_label', 'languages_path_label') ?>
+					<?= lang('nsm_multi_language_languages_path_label', 'languages_path_label') ?>
 				</th>
 				<td>
-					<input type="text" name="Nsm_multilanguage_ext[languages_path]" value="<?= $settings['languages_path'] ?>" id="languages_path"/>
+					<input type="text" name="Nsm_multi_language_ext[languages_path]" value="<?= $settings['languages_path'] ?>" id="languages_path"/>
 				</td>
 			</tr>
 

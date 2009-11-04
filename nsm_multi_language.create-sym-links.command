@@ -13,5 +13,5 @@ read ee_path
 echo "Enter your ExpressionEngine 2 system folder name [ENTER]:"
 read ee_system_folder
 
-ln -s "system/expressionengine/third_party/ext.nsm_multilanguage" "$ee_path/$ee_system_folder/expressionengine/third_party/ext.nsm_multilanguage"
-ln -s "system/expressionengine/language/nsm.languages" "$ee_path/$ee_system_folder/expressionengine/language/nsm.languages"
+ln -s "$dirname/system/expressionengine/third_party/ext.nsm_multi_language" "$ee_path/$ee_system_folder/expressionengine/third_party/ext.nsm_multi_language"
+ln -s "$dirname/system/expressionengine/language/nsm_multi_language" "$ee_path/$ee_system_folder/expressionengine/language/nsm_multi_language"

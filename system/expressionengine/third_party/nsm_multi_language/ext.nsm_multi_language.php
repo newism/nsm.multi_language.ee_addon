@@ -1,20 +1,22 @@
 <?php
 /**
+ * class Nsm_multi_language_ext
  * NSM Multi Language extension for ExpressionEngine
  *
- * @package NSM
+ * @package Nsm
  * @subpackage Multi Language
- * @author Leevi Graham <http://newism.com.au>
- * @see http://leevigraham.com/cms-customisation/expressionengine/addon/lg-multi-language/
+ * @version 2.0.0
+ * @author Leevi Graham & Tony Arnold <http://newism.com.au>
  * @copyright Copyright (c) 2007-2009 Newism
- * @license http://leevigraham.com/cms-customisation/commercial-license-agreement
+ * @license Commercial - please see LICENSE file included with this distribution
+ * 
  **/
-class Nsm_multilanguage_ext {
+class Nsm_multi_language_ext {
 	public $addon_name = 'NSM Multi Language';
 	public $name = 'NSM Multi Language';
 	public $version = '2.0.0';
-	public $docs_url = 'http://expressionengine-addons.com/nsm-multilanguage/';
-	public $versions_xml = 'http://dev.expressionengine-addons.com/versions.xml';
+//	public $docs_url = 'http://expressionengine-addons.com/nsm-multi-language/';
+//	public $versions_xml = 'http://dev.expressionengine-addons.com/versions.xml';
 
 	private $hooks = array('sessions_start');
 
@@ -57,7 +59,7 @@ class Nsm_multilanguage_ext {
 	{
 
 		$DB =& $this->EE->db;
-		$this->EE->lang->loadfile('nsm_multilanguage');
+		$this->EE->lang->loadfile('nsm_multi_language');
 		$this->EE->load->library('form_validation');
 
 		$vars['settings'] = $this->settings;
@@ -137,7 +139,7 @@ class Nsm_multilanguage_ext {
 		$this->EE->input->_global_vars['nsm_lang_path'] = '';
 
 		// Create an empty array for the language files
-		$sess->cache['nsm']['multilanguage']['languages'] = array();
+		$sess->cache['nsm']['multi_language']['languages'] = array();
 
 		// Is this a page request?
 		if (REQ == 'PAGE')
@@ -236,7 +238,7 @@ class Nsm_multilanguage_ext {
 			$this->EE->config->_global_vars['nsm_lang'] = $requested_language_id;
 			$this->EE->config->_global_vars['nsm_lang_title'] = isset($language_info['name']) ? $language_info['name'] : $requested_language_id;
 			$this->EE->config->_global_vars['nsm_lang_path'] = $this->settings['languages_path'];
-			$sess->cache['nsm']['multilanguage']['languages'][$requested_language_id] = $L;
+			$sess->cache['nsm']['multi_language']['languages'][$requested_language_id] = $L;
 		}
 	}
 
@@ -256,7 +258,7 @@ class Nsm_multilanguage_ext {
 		);
 
 		// Setup our default path
-		$hook_template['settings']['languages_path'] = APPPATH . 'language/nsm.languages';
+		$hook_template['settings']['languages_path'] = APPPATH . 'language/nsm_multi_language';
 
 		foreach($hooks as $key => $hook)
 		{
@@ -411,4 +413,4 @@ class Nsm_multilanguage_ext {
 		return $loaded_languages;
 	}
 
-} // END class Nsm_multilanguage_ext
+} // END class Nsm_multi_language_ext
