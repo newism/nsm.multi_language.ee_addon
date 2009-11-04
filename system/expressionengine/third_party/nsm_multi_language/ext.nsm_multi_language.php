@@ -15,8 +15,8 @@ class Nsm_multi_language_ext {
 	public $addon_name = 'NSM Multi Language';
 	public $name = 'NSM Multi Language';
 	public $version = '2.0.0';
-//	public $docs_url = 'http://expressionengine-addons.com/nsm-multi-language/';
-//	public $versions_xml = 'http://dev.expressionengine-addons.com/versions.xml';
+	public $docs_url = 'http://newism.com.au/nsm-multi-language/';
+	public $versions_xml = 'http://newism.com.au/nsm-multi-language/versions.xml';
 
 	private $hooks = array('sessions_start');
 
