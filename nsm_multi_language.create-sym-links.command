@@ -8,10 +8,12 @@ echo ""
 echo "You are about to create symlinks for NSM Multi Language"
 echo "------------------------------------------------------"
 echo ""
-echo "Enter the full path to your ExpressionEngine 2 install without a trailing slash [ENTER]:"
-read ee_path
-echo "Enter your ExpressionEngine 2 system folder name [ENTER]:"
+echo "Enter the full path to your ExpressionEngine 2 system folder without a trailing slash [ENTER]:"
 read ee_system_folder
 
-ln -s "$dirname/system/expressionengine/third_party/ext.nsm_multi_language" "$ee_path/$ee_system_folder/expressionengine/third_party/ext.nsm_multi_language"
-ln -s "$dirname/system/expressionengine/language/nsm_multi_language" "$ee_path/$ee_system_folder/expressionengine/language/nsm_multi_language"
+cd "$dirname"
+echo "Changed working directory to $dirname"
+ln -s "$dirname/system/expressionengine/third_party/nsm_multi_language" "$ee_system_folder/expressionengine/third_party/nsm_multi_language"
+echo "Linked \"$ee_system_folder/expressionengine/third_party/nsm_multi_language\""
+ln -s "$dirname/system/expressionengine/language/nsm_multi_language" "$ee_system_folder/expressionengine/language/nsm_multi_language"
+echo "Linked \"$ee_system_folder/expressionengine/language/nsm_multi_language\""
