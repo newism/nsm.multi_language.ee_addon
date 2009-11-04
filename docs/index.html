@@ -100,42 +100,37 @@
 				<li>Publish a new entry adding both English and French content</li>
 			</ol>
 			<h5>Displaying language specific content</h5>
-
+			<p><em>To be completed.</em></p>
 			<h4 id="user-guide:displaying-translated-content:plugin">Plugin</h4>
+			<p><em>To be completed.</em></p>
 
 
-
-<!--
-
-			<h4 id="conditionals">Conditional Global Variables</h4>
-			<p>Once LG Multi Language has determined the language from its abbreviation the value is can be accessed using the <code></code> global variable. This variable can be used in standard <a href="http://www.expressionengine.com/index.php?affiliate=leevi&amp;page=/docs/templates/globals/conditionals.html">ExpressionEngine conditional template queries</a>. This is demonstrated below:</p>
-			<pre><code>&#123;if lg_lang == 'jp'&#125;
-			  Japanese content
-			&#123;if:elseif lg_lang == 'it'&#125;
-			  Italian content
-			&#123;if:else&#125;
-			  Default content
-			&#123;if&#125;</code></pre>
-			<h4 id="lg-ml-plugin">LG Ml plugin</h4>
-			<p>The LG Ml plugin only has one method <em>translate</em> that accepts one parameter "p" which the the text you wish to have translated. An example of usage is provided below:</p>
-			<pre><code>&#123;exp:lg_ml:translate p="The phrase you would like translated"&#125;</code></pre>
-			<p>The plugin will check the required <a href="#creating-a-language-file">language file</a> and replace the text if a translation is available. If no translation is available the original phrase will be rendered.</p>
 			<h3 id="creating-a-language-file">Creating a language file</h3>
-			<p>Language files are used by the &#123;exp:lg_ml:translate&#125; plugin to translate pieces of text such as category names, menu titles or page headings.</p>
-			<p>The language file must be placed in your  template_base_path/language folder in your ExpressionEngine installation and use the following naming convention: lang.your-language-abbreviation.php. A sample language file has been provided in the <a href="#download">download</a>.</p>
-			<p>The <a href="http://expressionengine.com/docs/cp/templates/global_template_preferences.html template_base_path">template_base_path is set in your ExpressionEngine administration</a>.</p>
+			<p>Language files are used by the <code>&#123;exp:nsm_multilanguage:translate&#125;</code> plugin to translate pieces of text such as category names, menu titles or page headings.</p>
+			<p>The language file must be placed in your <code>system/expressionengine/language/nsm.languages</code> folder in your ExpressionEngine installation. Whatever name you use for the file (sans the &lsquo;<code>.php</code>&rsquo; file extension) will be the language ID that it responds to. Three sample language files have been provided in the <a href="#download">download</a>.</p>
 			<h4>Language file format</h4>
-			<p>The language file follows the same format as the standard ExpressionEngine language files. The file must consist of one associative array called $L. An example is provided below:</p>
-			<pre><code>&lt;?php $L = array(
-				"original phrase" => "translated phrase",
-				"original phrase 2" => "translated phrase 2"
-			)
-			?&gt;</code></pre>-->
+			<p>The language file follows the same format as the standard ExpressionEngine language files. The file must consist of two associative arrays: <code>$language_info</code>, which describes the language translation file, and <code>$L</code> which is the actual list of keys and values to be translated. An example is provided below:</p>
+			<pre><code>&lt;?php 
+	$language_info = array(
+		'name'			=> 'English (Australian)',
+		'version'		=> '1.0',
+		'author'		=> 'Tony Arnold',
+		'author_url'	=> 'http://newism.com.au/',
+	);
+	
+	$L = array(
+		'Hello' => "G&amp;rsquo;Day!",
+		'my_article_title' => 'Mobile phones are lots of fun!',
+		'my_article_body' => "G&amp;rsquo;day! This is an article about mobile phones.",
+	);
+
+?&gt;</code></pre>
+			<p><strong>Note:</strong> the normal rules for escaping PHP strings and HTML entities apply for the array values in the array &lsquo;<code>$L</code>&rsquo;.</p>
 			<h2 id='tag-reference'>
 			Tag Reference
 			</h3>
 			<h3 id='nsm-multilanguage'>NSM Multi Language</h3>
-			<p>&#123;exp:nsm_multilanguage&#125; has the following methods and parameters:</p>
+			<p><code>&#123;exp:nsm_multilanguage&#125;</code> has the following methods and parameters:</p>
 			<ol>
 			    <li><a href="#nsm-multilanguage-methods">Methods</a></li>
 			    <li><a href="#nsm-multilanguage-parameters">Parameters</a></li>
