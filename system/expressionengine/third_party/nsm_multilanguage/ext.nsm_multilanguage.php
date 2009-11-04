@@ -20,7 +20,6 @@ class Nsm_multilanguage_ext {
 
 	public $settings_exist = 'y';
 	private $default_settings = array(
-		'enabled' => TRUE,
 		'default_language' => 'en-US',
 		'check_for_updates' => TRUE,
 	);
@@ -73,7 +72,6 @@ class Nsm_multilanguage_ext {
 
 		$vars['addon_name'] = $this->addon_name;
 		$vars['languages'] = $this->get_languages_from_disk();
-		$vars['nsm_multilanguage_enabled'] = array_key_exists('Nsm_multilanguage_ext', $this->EE->extensions->version_numbers);
 
 		return $this->EE->load->view('form_settings', $vars, TRUE);
 	}
