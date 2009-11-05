@@ -71,7 +71,7 @@
 			<p>If a match is made the URL segment will be removed from the segment global variables and ignored by future ExpressionEngine processing. This is necessary so ExpressionEngine handles template rendering correctly.</p>
 
 			<h3 id="user-guide.creating-a-language-file" title="Create a language file">Creating a language file</h3>
-			<p>Language files are used by the <code>&#123;exp:nsm_multi_language:translate&#125;</code> plugin to translate pieces of text such as category names, menu titles or page headings.</p>
+			<p>Language files are used by the <code><a href="#tag-reference.exp:nsm_multi_language:translate">&#123;exp:nsm_multi_language:translate&#125;</a></code> plugin to translate pieces of text such as category names, menu titles or page headings.</p>
 			<p>The language file must be placed in your <code>system/expressionengine/language/nsm_multi_language</code> folder in your ExpressionEngine installation. Whatever name you use for the file (sans the &lsquo;<code>.php</code>&rsquo; file extension) will be the language ID that it responds to. Three sample language files have been provided in the <a href="#download">download</a>.</p>
 			<h4 id='user-guide.creating-a-language-file.language-file-format'>Language file format</h4>
 			<p>The language file follows the same format as the standard ExpressionEngine language files. The file must consist of two associative arrays: <code>$language_info</code>, which describes the language translation file, and <code>$LANG</code> which is the actual list of keys and values to be translated. An example is provided below:</p>
@@ -138,9 +138,10 @@
 
 			<h2 id="how-to_tutorials">How to / tutorials</h2>
 			<h3 id="how-to_tutorials.translate">Translate short phrases</h3>
-			<p>Translating short phrases is achieved using the <code>&#123;exp:nsm_multi_language:translate&#125;</code> tag.</p>
-			<p>The tag requires the <code><a href="#tag-reference.nsm_multi_language.translate.parameters.key">key</a></code> parameter which is used to look up the translated string in the current language's language file. A default value can also be passed which is used if the key cannot be found.</p>
-
+			<p>Translating short phrases is achieved using the <code><a href="#tag-reference.exp:nsm_multi_language:translate">&#123;exp:nsm_multi_language:translate&#125;</a></code> tag.</p>
+			<p>The tag requires the <code><a href="#tag-reference.exp:nsm_multi_language:translate.parameters.key">key</a></code> parameter which is used to look up the translated string in the current language's language file. A default value can also be passed which is used if the key cannot be found.</p>
+			<h4 id="how-to_tutorials.translate.example">Example</h4>
+			<pre><code>&#123;exp:nsm_multi_language:translate key="welcome_message" &#125;</code></pre>
 			<h3 id="how-to_tutorials.translate-channel-entries">Translate channel entries</h3>
 			<p>Another approach to managing translations is to attach language-specific custom fields to your channels. The basic concept is that users will be able to open a single channel entry to edit all translations for that entry, and the correct translation will be dynamically extracted by the template at render time.</p>
 			<p>This approach does not require entries in the language files, as the translated content is stored in the channel entries themselves.</p>
