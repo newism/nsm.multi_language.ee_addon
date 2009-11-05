@@ -112,7 +112,7 @@ class Nsm_multi_language_ext {
 	public function __construct($settings='')
 	{
 		$this->EE =& get_instance();
-
+		
 		// define a constant for the current site_id rather than calling $PREFS->ini() all the time
 		if(defined('SITE_ID') == FALSE)
 		{
@@ -167,8 +167,6 @@ class Nsm_multi_language_ext {
 	 **/
 	public function settings_form()
 	{
-
-		$DB =& $this->EE->db;
 		$this->EE->lang->loadfile('nsm_multi_language');
 		$this->EE->load->library('form_validation');
 
@@ -199,7 +197,7 @@ class Nsm_multi_language_ext {
 	private function get_settings($refresh = FALSE)
 	{
 		$settings = FALSE;
-		if (isset($SESS->cache[$this->addon_name][__CLASS__]['settings']) === FALSE OR $refresh === TRUE)
+		if (isset($this->EE->session->cache[$this->addon_name][__CLASS__]['settings']) === FALSE OR $refresh === TRUE)
 		{
 			$settings_query = $this->EE->db->query("SELECT `settings`
 													FROM `exp_extensions`
@@ -230,8 +228,7 @@ class Nsm_multi_language_ext {
 	 **/
 	protected function save_settings_to_db($settings)
 	{
-		$DB =& $this->EE->db;
-		$DB->query($DB->update_string('exp_extensions', array('settings' => serialize($settings)), array('class' => __CLASS__)));
+		$this->EE->db->query($DB->update_string('exp_extensions', array('settings' => serialize($settings)), array('class' => __CLASS__)));
 	}
 
 	/**
@@ -392,12 +389,11 @@ class Nsm_multi_language_ext {
 	 * @return		void
 	 * @see 		http://codeigniter.com/user_guide/general/hooks.html
 	 **/
-	private function create_hooks($hooks = FALSE){
-
-		global $DB;
-
-		if(!$hooks)
+	private function create_hooks($hooks = FALSE)
+	{
+		if (!$hooks) {
 			$hooks = $this->hooks;
+		}
 
 		$hook_template = array(
 			'class'    => __CLASS__,
@@ -408,9 +404,9 @@ class Nsm_multi_language_ext {
 		// Setup our default path
 		$hook_template['settings']['languages_path'] = APPPATH . 'language/nsm_multi_language';
 
-		foreach($hooks as $key => $hook)
+		foreach ($hooks as $key => $hook)
 		{
-			if(is_array($hook))
+			if (is_array($hook))
 			{
 				$data['hook'] = $key;
 				$data['method'] = (isset($hook['method']) === TRUE) ? $hook['method'] : $key;
@@ -420,6 +416,7 @@ class Nsm_multi_language_ext {
 			{
 				$data['hook'] = $data['method'] = $hook;
 			}
+			
 			$hook = array_merge($hook_template, $data);
 			$hook['settings'] = serialize($hook['settings']);
 			$this->EE->db->query($this->EE->db->insert_string('exp_extensions', $hook));
@@ -435,7 +432,6 @@ class Nsm_multi_language_ext {
 	 * @see 		http://codeigniter.com/user_guide/general/hooks.html
 	 **/
 	private function delete_hooks(){
-		global $DB;
 		$this->EE->db->query("DELETE FROM `exp_extensions` WHERE `class` = '".__CLASS__."'");
 	}
 
