@@ -342,7 +342,7 @@ class Nsm_multi_language_ext {
 			$this->EE->config->_global_vars['nsm_lang'] = $requested_language_id;
 			$this->EE->config->_global_vars['nsm_lang_title'] = isset($language_info['name']) ? $language_info['name'] : $requested_language_id;
 			$this->EE->config->_global_vars['nsm_lang_path'] = $this->settings['languages_path'];
-			$sess->cache['nsm']['multi_language']['languages'][$requested_language_id] = $L;
+			$sess->cache['nsm']['multi_language']['languages'][$requested_language_id] = $LANG;
 		}
 	}
 

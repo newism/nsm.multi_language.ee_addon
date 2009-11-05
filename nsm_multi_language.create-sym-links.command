@@ -4,11 +4,19 @@
 
 dirname=`dirname "$0"`
 
-echo ""
-echo "You are about to create symlinks for NSM Multi Language"
-echo "------------------------------------------------------"
-echo ""
-echo "Enter the full path to your ExpressionEngine 2 system folder without a trailing slash [ENTER]:"
+echo "
+You are about to create symlinks for NSM Multi Language 1.0
+-----------------------------------------------------------
+
+The symlinks use absolute paths so they are for *development purposes only*.
+
+The following directories must be writable:
+
+system/expressionengine/third_party
+system/expressionengine/language
+
+Enter the full path to your ExpressionEngine 2 system folder without a trailing slash [ENTER]:
+"
 read ee_system_folder
 
 cd "$dirname"
@@ -17,3 +25,4 @@ ln -s "$dirname/system/expressionengine/third_party/nsm_multi_language" "$ee_sys
 echo "Linked \"$ee_system_folder/expressionengine/third_party/nsm_multi_language\""
 ln -s "$dirname/system/expressionengine/language/nsm_multi_language" "$ee_system_folder/expressionengine/language/nsm_multi_language"
 echo "Linked \"$ee_system_folder/expressionengine/language/nsm_multi_language\""
+
