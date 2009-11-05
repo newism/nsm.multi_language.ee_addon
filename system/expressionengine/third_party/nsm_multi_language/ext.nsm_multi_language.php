@@ -208,7 +208,6 @@ class Nsm_multi_language_ext
 		// Setup blank global variables
 		$this->EE->input->_global_vars['nsm_lang'] = '';
 		$this->EE->input->_global_vars['nsm_lang_title'] = '';
-		$this->EE->input->_global_vars['nsm_lang_path'] = '';
 
 		// Create an empty array for the language files
 		$sess->cache['nsm']['multi_language']['languages'] = array();
@@ -309,7 +308,7 @@ class Nsm_multi_language_ext
 			include_once($file_path);
 			$this->EE->config->_global_vars['nsm_lang'] = $requested_language_id;
 			$this->EE->config->_global_vars['nsm_lang_title'] = isset($language_info['name']) ? $language_info['name'] : $requested_language_id;
-			$this->EE->config->_global_vars['nsm_lang_path'] = $this->settings['languages_path'];
+			$sess->userdata['nsm_lang_path'] = $this->settings['languages_path'];
 			$sess->cache['nsm']['multi_language']['languages'][$requested_language_id] = $LANG;
 		}
 	}
