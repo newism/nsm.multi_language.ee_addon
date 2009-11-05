@@ -100,6 +100,8 @@ class Nsm_multi_language_ext
 		'default_language' => 'en-US'
 	);
 
+
+
 	// ====================================
 	// = Delegate & Constructor Functions =
 	// ====================================
@@ -158,7 +160,7 @@ class Nsm_multi_language_ext
 	 **/
 	public function update_extension()
 	{
-		
+		// TODO: Write this function
 	}
 
 	/**
@@ -188,6 +190,7 @@ class Nsm_multi_language_ext
 
 		return $this->EE->load->view('form_settings', $vars, TRUE);
 	}
+
 
 
 	// ==================
