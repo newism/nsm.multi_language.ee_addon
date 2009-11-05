@@ -32,8 +32,8 @@ class Nsm_multi_language_ext
 	 * @access		public
 	 * @var			string
 	 **/
-	public $addon_name = 'NSM Multi Language';
-	
+	private $addon_name = 'NSM Multi Language';
+
 	/**
 	 * Name for this extension.
 	 * @version		2.0.0
@@ -97,11 +97,13 @@ class Nsm_multi_language_ext
 	 * @var			array an array of keys and values
 	 **/
 	private $default_settings = array(
-		'default_language' => 'en-US',
-		'check_for_updates' => TRUE,
+		'default_language' => 'en-US'
 	);
 
-	
+	// ====================================
+	// = Delegate & Constructor Functions =
+	// ====================================
+
 	/**
 	 * PHP5 constructor function.
 	 * @version		1.0.0
@@ -131,10 +133,10 @@ class Nsm_multi_language_ext
 	 * @return		void
 	 **/
 	public function activate_extension()
-	{ 
-		$this->create_hooks();
+	{
+		$this->_registerHooks();
 	}
-	
+
 	/**
 	 * Called by ExpressionEngine when the user disables the extension.
 	 * @version		1.0.0
@@ -144,9 +146,9 @@ class Nsm_multi_language_ext
 	 **/
 	public function disable_extension()
 	{
-		$this->delete_hooks();
+		$this->_unregisterHooks();
 	}
-	
+
 	/**
 	 * Called by ExpressionEngine when the user updates to a newer version of the extension.
 	 * @version		1.0.0
@@ -177,89 +179,20 @@ class Nsm_multi_language_ext
 		if($new_settings = $this->EE->input->post(__CLASS__))
 		{
 			$vars['settings'] = $new_settings;
-			$this->save_settings_to_db($new_settings);
+			$this->_saveSettingsToDatabase($new_settings);
 			$vars['message'] = $this->EE->lang->line('extension_settings_saved_success');
 		}
 
 		$vars['addon_name'] = $this->addon_name;
-		$vars['languages'] = $this->get_languages_from_disk();
+		$vars['languages'] = $this->_getLanguagesFromDisk();
 
 		return $this->EE->load->view('form_settings', $vars, TRUE);
 	}
 
-	/**
-	 * Returns the settings from the session. If the settings are not currently in the session, they are loaded from the database.
-	 * @version		1.0.0
-	 * @since		Version 1.0.0
-	 * @access		private
-	 * @param		boolean	$refresh	if this is set to TRUE, the settings stored in the session will be cleared, and reloaded from the database. Defaults to TRUE.
-	 * @return		array		current settings for this extension
-	 **/
-	private function get_settings($refresh = FALSE)
-	{
-		$settings = FALSE;
-		if (isset($this->EE->session->cache[$this->addon_name][__CLASS__]['settings']) === FALSE OR $refresh === TRUE)
-		{
-			$settings_query = $this->EE->db->query("SELECT `settings`
-													FROM `exp_extensions`
-													WHERE `enabled` = 'y'
-													AND `class` = '".__CLASS__."'
-													LIMIT 1"
-												);
-			if ($settings_query->num_rows())
-			{
-				$settings = unserialize($settings_query->row()->settings);
-				$this->save_settings_to_session($settings);
-			}
-		}
-		else
-		{
-			$settings = $this->EE->session->cache[$this->addon_name][__CLASS__]['settings'];
-		}
-		return $settings;
-	}
 
-	/**
-	 * Saves the specified settings array to the database.
-	 * @version		1.0.0
-	 * @since		Version 1.0.0
-	 * @access		protected
-	 * @param		array	$settings	an array of settings to save to the database.
-	 * @return		void
-	 **/
-	protected function save_settings_to_db($settings)
-	{
-		$this->EE->db->query($DB->update_string('exp_extensions', array('settings' => serialize($settings)), array('class' => __CLASS__)));
-	}
-
-	/**
-	 * Saves the specified settings array to the session.
-	 * @version		1.0.0
-	 * @since		Version 1.0.0
-	 * @access		protected
-	 * @param		array	$settings	an array of settings to save to the session.
-	 * @return		array		the provided settings array
-	 **/
-	protected function save_settings_to_session($settings)
-	{
-		$this->EE->session->cache[$this->addon_name][__CLASS__]['settings'] = $settings;
-		return $settings;
-	}
-
-	/*
-    <addons>
-        <addon id='NSM Multi Language' docs_url='http://newism.com.au/' download_url="">
-			<version number="2.0.0" created_at="1218852797">
-				<notes><![CDATA[
-					<ul>
-						<li>Initial update to support ExpressionEngine 2.0.</li>
-					</ul>
-				]]>
-				</notes>
-			</version>
-		</addon>
-    </addons>
-	*/
+	// ==================
+	// = Hook Callbacks =
+	// ==================
 
 	/**
 	 * This function is called by ExpressionEngine whenever the "sessions_start" hook is executed. It checks the current hostname to see if the first segment matches one of the languages stored in the user's language directory. If it doesn't find a matching host domain segment, it checks the URL to see if the first segment matches one of the languages stored in the user's language directory. If either of the preceding conditions are true, the language, language display name and the user-defined path to the languages directory are all set as global variables. These variables are accessed by the Nsm_multi_language plugin.
@@ -381,6 +314,72 @@ class Nsm_multi_language_ext
 		}
 	}
 
+
+
+	// ===============================
+	// = Class and Private Functions =
+	// ===============================
+
+	/**
+	 * Returns the settings from the session. If the settings are not currently in the session, they are loaded from the database.
+	 * @version		1.0.0
+	 * @since		Version 1.0.0
+	 * @access		private
+	 * @param		boolean	$refresh	if this is set to TRUE, the settings stored in the session will be cleared, and reloaded from the database. Defaults to TRUE.
+	 * @return		array		current settings for this extension
+	 **/
+	private function _getSettings($refresh = FALSE)
+	{
+		$settings = FALSE;
+		if (isset($this->EE->session->cache[$this->addon_name][__CLASS__]['settings']) === FALSE OR $refresh === TRUE)
+		{
+			$settings_query = $this->EE->db->query("SELECT `settings`
+													FROM `exp_extensions`
+													WHERE `enabled` = 'y'
+													AND `class` = '".__CLASS__."'
+													LIMIT 1"
+												);
+
+			if ($settings_query->num_rows())
+			{
+				$settings = unserialize($settings_query->row()->settings);
+				$this->_saveSettingsToSession($settings);
+			}
+		}
+		else
+		{
+			$settings = $this->EE->session->cache[$this->addon_name][__CLASS__]['settings'];
+		}
+		return $settings;
+	}
+
+	/**
+	 * Saves the specified settings array to the database.
+	 * @version		1.0.0
+	 * @since		Version 1.0.0
+	 * @access		protected
+	 * @param		array	$settings	an array of settings to save to the database.
+	 * @return		void
+	 **/
+	protected function _saveSettingsToDatabase($settings)
+	{
+		$this->EE->db->query($DB->update_string('exp_extensions', array('settings' => serialize($settings)), array('class' => __CLASS__)));
+	}
+
+	/**
+	 * Saves the specified settings array to the session.
+	 * @version		1.0.0
+	 * @since		Version 1.0.0
+	 * @access		protected
+	 * @param		array	$settings	an array of settings to save to the session.
+	 * @return		array		the provided settings array
+	 **/
+	protected function _saveSettingsToSession($settings)
+	{
+		$this->EE->session->cache[$this->addon_name][__CLASS__]['settings'] = $settings;
+		return $settings;
+	}
+
 	/**
 	 * Sets up and subscribes to the hooks specified by the $hooks array.
 	 * @version		2.0.0
@@ -390,9 +389,10 @@ class Nsm_multi_language_ext
 	 * @return		void
 	 * @see 		http://codeigniter.com/user_guide/general/hooks.html
 	 **/
-	private function create_hooks($hooks = FALSE)
+	private function _registerHooks($hooks = FALSE)
 	{
-		if (!$hooks) {
+		if (!$hooks)
+		{
 			$hooks = $this->hooks;
 		}
 
@@ -432,7 +432,8 @@ class Nsm_multi_language_ext
 	 * @return		void
 	 * @see 		http://codeigniter.com/user_guide/general/hooks.html
 	 **/
-	private function delete_hooks(){
+	private function _unregisterHooks()
+	{
 		$this->EE->db->query("DELETE FROM `exp_extensions` WHERE `class` = '".__CLASS__."'");
 	}
 
@@ -447,7 +448,7 @@ class Nsm_multi_language_ext
 	 * @access		private
 	 * @return		array	keys and values describing the languages found in the user-defined languages directory
 	 */
-	private function get_languages_from_disk()
+	private function _getLanguagesFromDisk()
 	{
 		$loaded_languages = array();
 		$lang_path = $this->settings['languages_path'];
@@ -498,7 +499,7 @@ class Nsm_multi_language_ext
 	 * @param		string	$lang_id	identifier for the language you would like to retrieve
 	 * @return		array	keys and values describing the specified language
 	 */
-	private function get_language_details_from_disk($lang_id)
+	private function _getLanguageDetailsFromDisk($lang_id)
 	{
 		if (isset($loaded_languages) !== TRUE) return;
 
@@ -561,7 +562,6 @@ class Nsm_multi_language_ext
 		} else {
 			// Raise an error appropriately
 			log_message('error', "Unable to open directory: {$lang_path}");
-
 		}
 
 		return $loaded_languages;
