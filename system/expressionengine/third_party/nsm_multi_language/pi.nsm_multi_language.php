@@ -46,7 +46,7 @@ class Nsm_multi_language
 	public $version = "2.0.0";
 
 	/**
-	 * Defines the default settings for an initial installation of this extension.
+	 * Defines the default settings for an initial installation of this plugin.
 	 * @version		2.0.0
 	 * @since		Version 1.0.0
 	 * @access		private
@@ -119,10 +119,10 @@ class Nsm_multi_language
 			}
 		}
 
-		// no lang file
-		// return the phrase un translated
 		$default_translation_value = $this->EE->TMPL->fetch_param('default');
 
+		// No language file was found, so we'll return the "default" value if it's available,
+		// otherwise we'll just return the key that the user used in the tag.
 		return ($default_translation_value !== FALSE) ? $default_translation_value : $translation_key;
 	}
 
@@ -135,7 +135,7 @@ class Nsm_multi_language
 	 **/
 	public function usage()
 	{
-		return "For usage please see the documentation attached to the original download for this extension.";
+		return "For usage please see the documentation attached to the original download for this plugin.";
 	}
 	// END
 }
