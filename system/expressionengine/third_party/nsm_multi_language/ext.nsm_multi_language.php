@@ -8,7 +8,7 @@
  * @author Leevi Graham & Tony Arnold <http://newism.com.au>
  * @copyright Copyright (c) 2007-2009 Newism
  * @license Commercial - please see LICENSE file included with this distribution
- * 
+ *
  **/
 
 /**
@@ -21,9 +21,10 @@
  * @author Leevi Graham & Tony Arnold <http://newism.com.au>
  * @copyright Copyright (c) 2007-2009 Newism
  * @license Commercial - please see LICENSE file included with this distribution
- * 
+ *
  **/
-class Nsm_multi_language_ext {
+class Nsm_multi_language_ext
+{
 	/**
 	 * Display name for this extension.
 	 * @version		2.0.0
@@ -41,7 +42,7 @@ class Nsm_multi_language_ext {
 	 * @var			string
 	 **/
 	public $name = 'NSM Multi Language';
-	
+
 	/**
 	 * Version number of this extension. Should be in the format "x.x.x", with only integers used.
 	 * @version		2.0.0
@@ -50,7 +51,7 @@ class Nsm_multi_language_ext {
 	 * @var			string
 	 **/
 	public $version = '2.0.0';
-	
+
 	/**
 	 * Link to documentation for this extension.
 	 * @version		2.0.0
@@ -59,7 +60,7 @@ class Nsm_multi_language_ext {
 	 * @var			string
 	 **/
 	public $docs_url = 'http://newism.com.au/nsm-multi-language/';
-	
+
 	/**
 	 * The XML auto-update URL for LG Auto Updater.
 	 * @version		2.0.0
@@ -87,7 +88,7 @@ class Nsm_multi_language_ext {
 	 * @var			string
 	 **/
 	public $settings_exist = 'y';
-	
+
 	/**
 	 * Defines the default settings for an initial installation of this extension.
 	 * @version		2.0.0
@@ -112,14 +113,14 @@ class Nsm_multi_language_ext {
 	public function __construct($settings='')
 	{
 		$this->EE =& get_instance();
-		
+
 		// define a constant for the current site_id rather than calling $PREFS->ini() all the time
 		if(defined('SITE_ID') == FALSE)
 		{
 			define('SITE_ID', $this->EE->config->item('site_id'));
 		}
 
-		$this->settings = ($settings == FALSE) ? $this->get_settings() : $this->save_settings_to_session($settings);
+		$this->settings = ($settings == FALSE) ? $this->_getSettings() : $this->_saveSettingsToSession($settings);
 	}
 
 	/**
@@ -283,7 +284,7 @@ class Nsm_multi_language_ext {
 		if (REQ == 'PAGE')
 		{
 			$requested_language_id = FALSE;
-		
+
 			$subdomain_language_file_exists = FALSE;
 			$uri_used_first_component = TRUE;
 			$uri_language_file_exists = FALSE;
@@ -306,7 +307,7 @@ class Nsm_multi_language_ext {
 				$subdomain_language_file_exists = FALSE;
 				$uri_language_file_exists = file_exists($file_path);
 				$requested_language_id = $first_uri_component;
-			
+
 				// If the first URL component doesn't exist, try the last
 				if ($uri_language_file_exists !== TRUE)
 				{
@@ -325,13 +326,13 @@ class Nsm_multi_language_ext {
 				$default_language_id = $this->settings['default_language'];
 				$file_path = $this->settings['languages_path'] . '/' . $default_language_id . '.php';
 				$default_language_file_exists = file_exists($file_path);
-			
+
 				if ($default_language_file_exists !== TRUE)
 				{
 					// Everything failed - there is no default language file available - return the request unaffected.
 					return;
 				}
-			
+
 				$requested_language_id = $default_language_id;
 			}
 
@@ -416,7 +417,7 @@ class Nsm_multi_language_ext {
 			{
 				$data['hook'] = $data['method'] = $hook;
 			}
-			
+
 			$hook = array_merge($hook_template, $data);
 			$hook['settings'] = serialize($hook['settings']);
 			$this->EE->db->query($this->EE->db->insert_string('exp_extensions', $hook));

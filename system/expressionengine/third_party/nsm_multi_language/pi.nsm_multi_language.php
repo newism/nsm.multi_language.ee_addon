@@ -99,6 +99,7 @@ class Nsm_multi_language
 					if (file_exists($requested_language_file_path) !== FALSE)
 					{
 						include_once($requested_language_file_path);
+
 						if (isset($LANG))
 						{
 							$languages_cache[$requested_language_id] = $LANG;
