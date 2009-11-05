@@ -4,6 +4,7 @@
  *
  * @package Nsm_multi_language
  * @version 2.0.0
+ * @since 1.0.0
  * @author Leevi Graham & Tony Arnold <http://newism.com.au>
  * @copyright Copyright (c) 2007-2009 Newism
  * @license Commercial - please see LICENSE file included with this distribution
@@ -16,6 +17,7 @@
  *
  * @package Nsm_multi_language
  * @version 2.0.0
+ * @since 1.0.0
  * @author Leevi Graham & Tony Arnold <http://newism.com.au>
  * @copyright Copyright (c) 2007-2009 Newism
  * @license Commercial - please see LICENSE file included with this distribution
@@ -24,41 +26,53 @@
 class Nsm_multi_language_ext {
 	/**
 	 * Display name for this extension.
-	 * @access	public
-	 * @var		string
+	 * @version		2.0.0
+	 * @since		Version 1.0.0
+	 * @access		public
+	 * @var			string
 	 **/
 	public $addon_name = 'NSM Multi Language';
 	
 	/**
 	 * Name for this extension.
-	 * @access	public
-	 * @var		string
+	 * @version		2.0.0
+	 * @since		Version 1.0.0
+	 * @access		public
+	 * @var			string
 	 **/
 	public $name = 'NSM Multi Language';
 	
 	/**
 	 * Version number of this extension. Should be in the format "x.x.x", with only integers used.
-	 * @access	public
-	 * @var		string
+	 * @version		2.0.0
+	 * @since		Version 1.0.0
+	 * @access		public
+	 * @var			string
 	 **/
 	public $version = '2.0.0';
 	
 	/**
 	 * Link to documentation for this extension.
-	 * @access	public
-	 * @var		string
+	 * @version		2.0.0
+	 * @since		Version 1.0.0
+	 * @access		public
+	 * @var			string
 	 **/
 	public $docs_url = 'http://newism.com.au/nsm-multi-language/';
 	
 	/**
 	 * The XML auto-update URL for LG Auto Updater.
-	 * @access	public
-	 * @var		string
+	 * @version		2.0.0
+	 * @since		Version 1.0.0
+	 * @access		public
+	 * @var			string
 	 **/
 	public $versions_xml = 'http://newism.com.au/nsm-multi-language/versions.xml';
 
 	/**
 	 * Defines the ExpressionEngine hooks that this extension will intercept.
+	 * @version		1.0.0
+	 * @since		Version 1.0.0
 	 * @access		private
 	 * @var			mixed	an array of strings that name defined hooks
 	 * @see			http://codeigniter.com/user_guide/general/hooks.html
@@ -67,6 +81,8 @@ class Nsm_multi_language_ext {
 
 	/**
 	 * Defines whether the extension has user-configurable settings.
+	 * @version		1.0.0
+	 * @since		Version 1.0.0
 	 * @access		public
 	 * @var			string
 	 **/
@@ -74,8 +90,10 @@ class Nsm_multi_language_ext {
 	
 	/**
 	 * Defines the default settings for an initial installation of this extension.
-	 * @access	private
-	 * @var		array an array of keys and values
+	 * @version		2.0.0
+	 * @since		Version 1.0.0
+	 * @access		private
+	 * @var			array an array of keys and values
 	 **/
 	private $default_settings = array(
 		'default_language' => 'en-US',
@@ -85,7 +103,10 @@ class Nsm_multi_language_ext {
 	
 	/**
 	 * PHP5 constructor function.
+	 * @version		1.0.0
+	 * @since		Version 1.0.0
 	 * @access		public
+	 * @param		array	$settings	an array of settings used to construct a new instance of this class.
 	 * @return 		void
 	 **/
 	public function __construct($settings='')
@@ -103,6 +124,8 @@ class Nsm_multi_language_ext {
 
 	/**
 	 * Called by ExpressionEngine when the user activates the extension.
+	 * @version		1.0.0
+	 * @since		Version 1.0.0
 	 * @access		public
 	 * @return		void
 	 **/
@@ -113,6 +136,8 @@ class Nsm_multi_language_ext {
 	
 	/**
 	 * Called by ExpressionEngine when the user disables the extension.
+	 * @version		1.0.0
+	 * @since		Version 1.0.0
 	 * @access		public
 	 * @return		void
 	 **/
@@ -123,6 +148,8 @@ class Nsm_multi_language_ext {
 	
 	/**
 	 * Called by ExpressionEngine when the user updates to a newer version of the extension.
+	 * @version		1.0.0
+	 * @since		Version 1.0.0
 	 * @access		public
 	 * @return		void
 	 **/
@@ -133,6 +160,8 @@ class Nsm_multi_language_ext {
 
 	/**
 	 * Prepares and loads the settings form for display in the ExpressionEngine control panel.
+	 * @version		2.0.0
+	 * @since		Version 1.0.0
 	 * @access		public
 	 * @return		void
 	 **/
@@ -161,8 +190,10 @@ class Nsm_multi_language_ext {
 
 	/**
 	 * Returns the settings from the session. If the settings are not currently in the session, they are loaded from the database.
+	 * @version		1.0.0
+	 * @since		Version 1.0.0
 	 * @access		private
-	 * @param		boolean		if this is set to TRUE, the settings stored in the session will be cleared, and reloaded from the database. Defaults to TRUE.
+	 * @param		boolean	$refresh	if this is set to TRUE, the settings stored in the session will be cleared, and reloaded from the database. Defaults to TRUE.
 	 * @return		array		current settings for this extension
 	 **/
 	private function get_settings($refresh = FALSE)
@@ -191,8 +222,10 @@ class Nsm_multi_language_ext {
 
 	/**
 	 * Saves the specified settings array to the database.
+	 * @version		1.0.0
+	 * @since		Version 1.0.0
 	 * @access		protected
-	 * @param		array		an array of settings to save to the database.
+	 * @param		array	$settings	an array of settings to save to the database.
 	 * @return		void
 	 **/
 	protected function save_settings_to_db($settings)
@@ -203,8 +236,10 @@ class Nsm_multi_language_ext {
 
 	/**
 	 * Saves the specified settings array to the session.
+	 * @version		1.0.0
+	 * @since		Version 1.0.0
 	 * @access		protected
-	 * @param		array		an array of settings to save to the session.
+	 * @param		array	$settings	an array of settings to save to the session.
 	 * @return		array		the provided settings array
 	 **/
 	protected function save_settings_to_session($settings)
@@ -230,8 +265,10 @@ class Nsm_multi_language_ext {
 
 	/**
 	 * This function is called by ExpressionEngine whenever the "sessions_start" hook is executed. It checks the current hostname to see if the first segment matches one of the languages stored in the user's language directory. If it doesn't find a matching host domain segment, it checks the URL to see if the first segment matches one of the languages stored in the user's language directory. If either of the preceding conditions are true, the language, language display name and the user-defined path to the languages directory are all set as global variables. These variables are accessed by the Nsm_multi_language plugin.
+	 * @version		2.0.0
+	 * @since		Version 1.0.0
 	 * @access		public
-	 * @param		object		the current session that the hook was called from.
+	 * @param		object	&$sess	an object reference to the current session that the hook was called from.
 	 * @return		void
 	 * @see 		http://codeigniter.com/user_guide/general/hooks.html
 	 **/
@@ -348,8 +385,10 @@ class Nsm_multi_language_ext {
 
 	/**
 	 * Sets up and subscribes to the hooks specified by the $hooks array.
+	 * @version		2.0.0
+	 * @since		Version 1.0.0
 	 * @access		private
-	 * @param		array		a flat array containing the names of any hooks that this extension subscribes to. By default, this parameter is set to FALSE.
+	 * @param		array	$hooks	a flat array containing the names of any hooks that this extension subscribes to. By default, this parameter is set to FALSE.
 	 * @return		void
 	 * @see 		http://codeigniter.com/user_guide/general/hooks.html
 	 **/
@@ -389,6 +428,8 @@ class Nsm_multi_language_ext {
 
 	/**
 	 * Removes all subscribed hooks for the current extension.
+	 * @version		1.0.0
+	 * @since		Version 1.0.0
 	 * @access		private
 	 * @return		void
 	 * @see 		http://codeigniter.com/user_guide/general/hooks.html
@@ -404,6 +445,8 @@ class Nsm_multi_language_ext {
 
 	/**
 	 * Retrieves available language files from disk
+	 * @version		2.0.0
+	 * @since		Version 2.0.0
 	 * @access		private
 	 * @return		array	keys and values describing the languages found in the user-defined languages directory
 	 */
@@ -452,9 +495,11 @@ class Nsm_multi_language_ext {
 
 	/**
 	 * Get details on the language specified by $lang_id from the session if it's available, otherwise load from disk
+	 * @version		2.0.0
+	 * @since		Version 2.0.0
 	 * @access		private
-	 * @param		string	identifier for the language you would like to retrieve
-	 * @return		array	array of language info
+	 * @param		string	$lang_id	identifier for the language you would like to retrieve
+	 * @return		array	keys and values describing the specified language
 	 */
 	private function get_language_details_from_disk($lang_id)
 	{
