@@ -437,10 +437,6 @@ class Nsm_multi_language_ext
 		$this->EE->db->query("DELETE FROM `exp_extensions` WHERE `class` = '".__CLASS__."'");
 	}
 
-
-	private function write_cache(){}
-	private function get_cache(){}
-
 	/**
 	 * Retrieves available language files from disk
 	 * @version		2.0.0
