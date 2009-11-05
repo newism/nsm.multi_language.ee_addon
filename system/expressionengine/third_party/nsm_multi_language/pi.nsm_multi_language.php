@@ -2,8 +2,7 @@
 /**
  * Plugin File for NSM Multi Language
  *
- * @package Nsm
- * @subpackage Multi Language
+ * @package Nsm_multi_language
  * @version 2.0.0
  * @author Leevi Graham & Tony Arnold <http://newism.com.au>
  * @copyright Copyright (c) 2007-2009 Newism
@@ -27,8 +26,7 @@ $plugin_info = array(
 /**
  * This ExpressionEngine plugin translates phrases to the chosen language. It requires the NSM Multi Language extension to be installed and enabled to function.
  *
- * @package Nsm
- * @subpackage Multi Language
+ * @package Nsm_multi_language
  * @version 2.0.0
  * @author Leevi Graham & Tony Arnold <http://newism.com.au>
  * @copyright Copyright (c) 2007-2009 Newism
