@@ -8,7 +8,10 @@
 <body>
 	<div id="doc">
 		<div id="content">
-			<h1 class='page-title'><strong>NSM Multi Language <small>v</small>2.0.0</strong> <span>Add simple and easy multiple language support to your ExpressionEngine 2 templates</span></h1>
+			<h1 class='page-title'>
+				<strong>NSM Multi Language <small>v</small>2.0.0</strong>
+				<span>Add simple and easy multiple language support to your ExpressionEngine 2 templates</span>
+			</h1>
 			<p>
 				NSM Multi Language is an <a href="http://www.expressionengine.com/index.php?affiliate=newism" rel="external">ExpressionEngine</a>
 				<a href="http://www.expressionengine.com/index.php?affiliate=newism&amp;page=/downloads/addons/category/extensions/">extension</a> and plugin combination that adds simple multiple language support to your ExpressionEngine templates. Language is determined by either sub-domain or url segment and can be used to display language specific custom fields and phrases.
@@ -17,16 +20,18 @@
 			<h2 id="requirements">Requirements</h2>
 			<p>NSM Multi Language is an ExpressionEngine <a href="http://www.expressionengine.com/index.php?affiliate=leevi&amp;page=/downloads/addons/category/extensions/">extension</a> / <a href="http://www.expressionengine.com/index.php?affiliate=leevi&amp;page=/downloads/addons/category/plugins/">plugin</a> combination and has been tested on <a href="http://www.expressionengine.com/index.php?affiliate=leevi">ExpressionEngine 2.0+</a>.</p>
 			
-			<h2 id="installation">Installation</h2>
+			<h2 id='installation-and-configuration'>Installation and configuration</h2>
+			
+			<h3 id="installation-and-configuration:installation">Installation</h3>
 			<p>The NSM Multi Language addon download contains a system folder ( third_party &amp; language folders) and three simple example <a href="#creating-a-language-file">language files</a> which is used for phrase translations. To install the addon follow the instructions below:</p>
 			<ol>
 			    <li><a href="#download">Download the latest version of the extension</a></li>
 			    <li>Extract the .zip file to your desktop</li>
 			    <li>Copy the <code>system/expressionengine/third_party/nsm_multi_language</code> directory to your <code>/system/expressionengine/third_party/</code> directory</li>
-			    <li>Copy the <code>system/expressionengine/language/nsm.languages</code> directory to your <code>/system/expressionengine/language/</code> directory</li>
+			    <li>Copy the <code>system/expressionengine/language/nsm_multi_language</code> directory to your <code>/system/expressionengine/language/</code> directory</li>
 			</ol>
 			
-			<h2 id='activation'>Activation</h2>
+			<h3 id='installation-and-configuration:activation'>Activation</h3>
 			<p>This extension has no special activation requirements. To activate:</p>
 			<ol>
 			    <li>Log in to your site control panel</li>
@@ -35,46 +40,110 @@
 			    <li><strong>Enable</strong> the NSM Multi Language extension</li>
 			    <li>Update the <strong>extension settings</strong>.</li>
 			</ol>
-			<h2 id="configuration">Configuration</h2>
-			<h3 id="configuration:extension-settings">Extension Settings</h3>
+
+			<h3 id="installation-and-configuration:configuration">Configuration</h3>
+			<h4 id="installation-and-configuration:configuration:extension-settings">Extension Settings</h4>
 			<p> NSM Multi Language has two extension settings.</p>
 			<ol>
-			    <li><a href='#configuration:extension-settings:default-language'>Default Language</a></li>
-			    <li><a href='#configuration:extension-settings:languages-directory'>Languages Directory</a></li>
+			    <li><a href='#installation-and-configuration:configuration:extension-settings:default-language'>Default Language</a></li>
+			    <li><a href='#installation-and-configuration:configuration:extension-settings:languages-directory'>Languages Directory</a></li>
 			</ol>
 
-			<h5 id="configuration:extension-settings:default-language">Default language <small>[required]</small></h5>
+			<h5 id="installation-and-configuration:configuration:extension-settings:default-language">Default language <small>[required]</small></h5>
 			<pre><kbd>en-US</kbd></pre>
 			<p>The default language to use if no language can be determined by the URL. </p>
 			
-			<h5 id="configuration:extension-settings:languages-directory">Languages directory <small>[required]</small></h5>
-			<pre><kbd>/PATH/TO/YOUR/WEBSITE/system/expressionengine/language/nsm.languages/</kbd></pre>
+			<h5 id="installation-and-configuration:configuration:extension-settings:languages-directory">Languages directory <small>[required]</small></h5>
+			<pre><kbd>/PATH/TO/YOUR/WEBSITE/system/expressionengine/language/nsm_multi_language/</kbd></pre>
 			<p>The path where your language translation files are stored. The name of the files stored in this directory should be the same as the language abbreviation - ie. 'en-US.php', 'en-AU.php', 'fr.php'.</p>
 			
 			<h2 id='user-guide'>User Guide</h2>
 			<p>NSM Multi Language uses <a href="#user-guide:which-language">simple URL parsing</a> to determine the template language.</p>
-			<p>System administrators determine the available languages in the <a href="configuration:extension-settings:languages">extension settings</a> and these are the languages that are used for URL parsing. If no language is parsed from the URL then the <a href="configuration:extension-settings:default-language">default language</a> will be assigned to the global <code>&#123;lg_lang&#125;</code> and <code>&#123;lg_lang_title&#125;</code> global variables.</p>
+			<p>System administrators determine the available languages in the <a href="configuration:extension-settings:languages">extension settings</a> and these are the languages that are used for URL parsing. If no language is parsed from the URL then the <a href="configuration:extension-settings:default-language">default language</a> will be assigned to the global <code>&#123;nsm_lang&#125;</code> and <code>&#123;nsm_lang_title&#125;</code> global variables.</p>
 
 			<h3 id="user-guide:which-language">Which language?</h3>
-			<p>The assigned language is determined by parsing the template URL for the available language translations in the <a href="#configuration:extension-settings:languages-directory">extension settings</a>. NSM Multi Language checks the <a href="#user-guide:which-language:sub-domain">sub-domain</a> and <a href="#user-guide:which-language:url-segments">URL segments</a> for a matching translation file.</p>
+			<p>The assigned language is determined by parsing the template URL for the available language translations in the <a href="#configuration:extension-settings:languages-directory">extension settings</a>. NSM Multi Language checks the <a href="#user-guide:which-language:sub-domain">sub-domain</a> and the first <a href="#user-guide:which-language:url-segment">URL segment</a> for a matching translation file.</p>
 			
 			<h4 id="user-guide:which-language:sub-domain">Sub-Domain</h4>
 			<p>The first sub-domain will be compared to the available language translation files in the <a href="#configuration:extension-settings:languages">languages directory</a> before any URL segments are parsed.</p>
 
-			<h4 id="user-guide:which-language:url-segments">URL segments</h4>
+			<h4 id="user-guide:which-language:url-segment">URL segments</h4>
 			<p>The first URL segment will be compared to the available language translation files in the <a href="#configuration:extension-settings:languages">languages directory</a> after the <a href="#user-guide:which-language:sub-domain">sub-domain</a> has been checked.</p>
 			<p>If a match is made the URL segment will be removed from the segment global variables and ignored by future ExpressionEngine processing. This is necessary so ExpressionEngine handles template rendering correctly.</p>
 
+			<h3 id="user-guide:creating-a-language-file" title="Create a language file">Creating a language file</h3>
+			<p>Language files are used by the <code>&#123;exp:nsm_multi_language:translate&#125;</code> plugin to translate pieces of text such as category names, menu titles or page headings.</p>
+			<p>The language file must be placed in your <code>system/expressionengine/language/nsm_multi_language</code> folder in your ExpressionEngine installation. Whatever name you use for the file (sans the &lsquo;<code>.php</code>&rsquo; file extension) will be the language ID that it responds to. Three sample language files have been provided in the <a href="#download">download</a>.</p>
+			<h4 id='user-guide:creating-a-language-file:language-file-format'>Language file format</h4>
+			<p>The language file follows the same format as the standard ExpressionEngine language files. The file must consist of two associative arrays: <code>$language_info</code>, which describes the language translation file, and <code>$LANG</code> which is the actual list of keys and values to be translated. An example is provided below:</p>
+			<pre><code>&lt;?php 
+    $language_info = array(
+        'name'          => 'English (Australian)',
+        'version'       => '1.0',
+        'author'        => 'Tony Arnold',
+        'author_url'    => 'http://newism.com.au/',
+    );
+    
+    $LANG = array(
+        'Hello' => "G&amp;rsquo;Day!",
+        'my_article_title' => 'Mobile phones are lots of fun!',
+        'my_article_body' => "G&amp;rsquo;day! This is an article about mobile phones.",
+    );
 
-			<h3 id="user-guide:displaying-translated-content">Displaying translated content</h3>
-			<p>Translated content can be displayed using either of the following methods:</p>
+?&gt;</code></pre>
+			<p><strong>Note:</strong> the normal rules for escaping PHP strings and HTML entities apply for the array values in the array &lsquo;<code>$LANG</code>&rsquo;.</p>
+			<h2 id='tag-reference'>Tag Reference</h2>
+			<h3 id='tag-reference:global-variables'>Global Variables</h3>
+			<p>NSM Multi Language sets three global variables: <code>&#123;nsm_lang&#125;</code> &amp; <code>&#123;nsm_lang_title&#125;</code></code> that are rendered before any other tags.</p>
+			<p> These global variables can be used to create dynamic template tags like <code>&#123;body_&#123;nsm_lang&#125;&#125;</code> and <code>&#123;title_&#123;nsm_lang&#125;&#125;</code> (See: Translating weblog content).</p>
+
+			<pre><code>&#123;nsm_lang&#125;</code></pre>
+			<p>The current language code eg: 'en-US', 'fr' etc</p>
+			<pre><code>&#123;nsm_lang_title&#125;</code></pre>
+			<p>The current language in a human readable format eg: 'English (United States)', 'French' etc</p>
+
+			<h3 id='tag-reference:nsm_multi_language:translate' class='tag'><code>&#123;exp:nsm_multi_language:translate&#125;</code></h3>
+			<pre><code>&#123;exp:nsm_multi_language:translate <a href="#nsm-multi_language-parameters-key">key</a> [, <a href="#nsm-multi_language-parameters-default">default</a>, <a href="#nsm-multi_language-parameters-language">language</a>]&#125;</code></pre>
+			<p>Requires the "key" parameter. If the language file contains the value of "key", it is translated. If no translation is available, the optional "default" parameter will be rendered. If that is not available, the original value of the "key" parameter will be rendered.</p>
+		
+			
+			<h4 id="tag-reference:nsm_multi_language:translate:parameters">Parameters</h4>
 			<ol>
-			    <li><a href="#user-guide:displaying-translated-content:global-variables">Global variables</a></li>
-			    <li><a href="#user-guide:displaying-translated-content:plugin">Plugin</a></li>
+			    <li><a href="#tag-reference:nsm_multi_language:translate:parameters:key">key</a></li>
+			    <li><a href="#tag-reference:nsm_multi_language:translate:parameters:default">default</a></li>
+			    <li><a href="#tag-reference:nsm_multi_language:translate:parameters:language">language</a></li>
 			</ol>
-			<h4 id="user-guide:displaying-translated-content:global-variables">Global variables</h4>
-			<p>NSM Multi Language sets three global variables: <code>&#123;nsm_lang&#125;</code>, <code>&#123;nsm_lang_title&#125;</code>  &amp; <code>&#123;nsm_lang_path&#125;</code> that are rendered before any other tags. These global variables can be used to create dynamic template tags like <code>&#123;body_&#123;nsm_lang&#125;&#125;</code> and <code>&#123;title_&#123;nsm_lang&#125;&#125;</code>.</p>
-			<h5>Setting up custom fields for each language</h5>
+			<h5 id="tag-reference:nsm_multi_language:translate:parameters:key">key <small>[required]</small></h5>
+			<pre><code>key="The phrase you would like translated"</code></pre>
+			<p>The key for the phrase you would like translated. The key must have an entry in the language file to be translated. <em>This parameter is required.</em></p>
+			<h5 id="tag-reference:nsm_multi_language:translate:parameters:default">default <small>[optional]</small></h5>
+			<pre><code>default="A default phrase, just in case."</code></pre>
+			<p>A default phrase that will be used if there is no valid translation for the requested language. <em>This parameter is optional.</em></p>
+			<h5 id="tag-reference:nsm_multi_language:translate:parameters:language">language <small>[optional]</small></h5>
+			<pre><code>language="en-US"</code></pre>
+			<p>Setting this parameter will force the current usage of the <code>&#123;exp:nsm_multi_language:translate&#125;</code> to output in the specified language. If the entered code does not exist, the <a href="#configuration:extension-settings:default-language">default language</a> will be used instead. <em>This parameter is optional.</em></p>
+			<h4>Examples</h4>
+			<h5>Translate a simple phrase in the current language</h5>
+			<pre><code>&#123;exp:nsm_multi_language:translate key="welcome_message" &#125;</code></pre>
+			<h5>Translate a simple phrase in the current language with a default option if no key is found</h5>
+			<pre><code>&#123;exp:nsm_multi_language:translate
+    key="welcome_message" 
+    default="Welcome to my website" 
+&#125;</code></pre>
+			<h5>Translate a simple phrase setting the language explicitly</h5>
+			<pre><code>&#123;exp:nsm_multi_language:translate
+    key="welcome_message" 
+    default="Welcome to my website"
+    language="fr"
+&#125;</code></pre>
+
+			<h2 id="how-to_tutorials">How to / tutorials</h2>
+			<h3 id="how-to_tutorials:translate">Translate short phrases</h3>
+			<p>Translating short phrases is achieved using the <code>&#123;exp:nsm_multi_language:translate&#125;</code> tag.</p>
+			<p>The tag requires the <code>key</code> parameter which is used to look up the translated string in the current language's language file. A default value can also be passed which is used if the key cannot be found.</p>
+
+			<h3 id="how-to_tutorials">Translate weblog entries</h3>
+			<h4 title="Create custom fields">Create custom fields for each language</h4>
 			<p>The preferred method of entering multiple language data is to use a multiple custom fields in a single entry.</p>
 			<ol>
 				<li>Create a new weblog called "Blog"</li>
@@ -82,84 +151,26 @@
 					<ol>
 						<li><strong>English</strong> content:
 							<ul>
-								<li>Title: US English Body</li>
-								<li>Short name: body_en-US</li>
-								<li>Instructions: US English content for the entry.</li>
+								<li>Title: <kbd>US English Body</kbd></li>
+								<li>Short name: <kbd>body_en-US</kbd></li>
+								<li>Instructions: <kbd>US English content for the entry.</kbd></li>
 							</ul>
 						</li>
 						<li><strong>French</strong> content:
 							<ul>
-								<li>Title: French Body</li>
-								<li>Short name: body_fr</li>
-								<li>Instructions: French content for the entry.</li>
+								<li>Title: <kbd>French Body</kbd></li>
+								<li>Short name: <kbd>body_fr</kbd></li>
+								<li>Instructions: <kbd>French content for the entry.</kbd></li>
 							</ul>
 						</li>
 					</ol>
 				</li>
-				<li>Assign the custom field group to the weblog</li>
+				<li>Assign the custom field group to the "Blog" weblog</li>
 				<li>Publish a new entry adding both English and French content</li>
 			</ol>
-			<h5>Displaying language specific content</h5>
+			<h4 title="Output content">Displaying language specific content</h5>
 			<p><em>To be completed.</em></p>
-			<h4 id="user-guide:displaying-translated-content:plugin">Plugin</h4>
-			<p><em>To be completed.</em></p>
-
-
-			<h3 id="creating-a-language-file">Creating a language file</h3>
-			<p>Language files are used by the <code>&#123;exp:nsm_multi_language:translate&#125;</code> plugin to translate pieces of text such as category names, menu titles or page headings.</p>
-			<p>The language file must be placed in your <code>system/expressionengine/language/nsm.languages</code> folder in your ExpressionEngine installation. Whatever name you use for the file (sans the &lsquo;<code>.php</code>&rsquo; file extension) will be the language ID that it responds to. Three sample language files have been provided in the <a href="#download">download</a>.</p>
-			<h4>Language file format</h4>
-			<p>The language file follows the same format as the standard ExpressionEngine language files. The file must consist of two associative arrays: <code>$language_info</code>, which describes the language translation file, and <code>$L</code> which is the actual list of keys and values to be translated. An example is provided below:</p>
-			<pre><code>&lt;?php 
-	$language_info = array(
-		'name'			=> 'English (Australian)',
-		'version'		=> '1.0',
-		'author'		=> 'Tony Arnold',
-		'author_url'	=> 'http://newism.com.au/',
-	);
-	
-	$L = array(
-		'Hello' => "G&amp;rsquo;Day!",
-		'my_article_title' => 'Mobile phones are lots of fun!',
-		'my_article_body' => "G&amp;rsquo;day! This is an article about mobile phones.",
-	);
-
-?&gt;</code></pre>
-			<p><strong>Note:</strong> the normal rules for escaping PHP strings and HTML entities apply for the array values in the array &lsquo;<code>$L</code>&rsquo;.</p>
-			<h2 id='tag-reference'>
-			Tag Reference
-			</h3>
-			<h3 id='nsm-multi_language'>NSM Multi Language</h3>
-			<p><code>&#123;exp:nsm_multi_language&#125;</code> has the following methods and parameters:</p>
-			<ol>
-			    <li><a href="#nsm-multi_language-methods">Methods</a></li>
-			    <li><a href="#nsm-multi_language-parameters">Parameters</a></li>
-			</ol>
-			<h4 id='nsm-multi_language-methods'>Methods</h4>
-			<ol>
-			    <li><a href="#nsm-multi_language-methods-translate">translate</a></li>
-			</ol>
-			<h5 id="nsm-multi_language-methods-translate">&#123;exp:nsm_multi_language:translate&#125;</h5>
-			<pre><code>&#123;exp:nsm_multi_language:translate key="The phrase you would like translated" 
-				 default="A default replacement phrase" 
-				 language="en-US"&#125;</code></pre>
-			<p>Requires the "key" parameter. If the language file contains the value of "key", it is translated. If no translation is available, the optional "default" parameter will be rendered. If that is not available, the original value of the "key" parameter will be rendered.</p>
 			
-			<h4 id="nsm-multi_language-parameters">Parameters</h4>
-			<ol>
-			    <li><a href="#nsm-multi_language-parameters-key">key</a></li>
-			    <li><a href="#nsm-multi_language-parameters-default">default</a></li>
-			    <li><a href="#nsm-multi_language-parameters-language">language</a></li>
-			</ol>
-			<h5 id="nsm-multi_language-parameters-key">key <small>[required]</small></h5>
-			<pre><code>key="The phrase you would like translated"</code></pre>
-			<p>The key for the phrase you would like translated. The key must have an entry in the language file to be translated. <em>This parameter is required.</em></p>
-			<h5 id="nsm-multi_language-parameters-default">default</h5>
-			<pre><code>default="A default phrase, just in case."</code></pre>
-			<p>A default phrase that will be used if there is no valid translation for the requested language. <em>This parameter is optional.</em></p>
-			<h5 id="nsm-multi_language-parameters-language">language</h5>
-			<pre><code>language="en-US"</code></pre>
-			<p>Setting this parameter will force the current usage of the <code>&#123;exp:nsm_multi_language:translate&#125;</code> to output in the specified language. If the entered code does not exist, the <a href="#configuration:extension-settings:default-language">default language</a> will be used instead. <em>This parameter is optional.</em></p>
 			
 			<h2 id='change-log'>Change Log</h2>
 			<h3>2.0.0</h3>
@@ -170,6 +181,8 @@
 					<ul>
 						<li><a href="#nsm-multi_language-parameters-default">default</a>: This parameter allows you to specify a per-tag fallback should the specified <a href="#nsm-multi_language-parameters-key">key</a> parameter not be found.</li>
 						<li><a href="#nsm-multi_language-parameters-language">language</a>: This parameter allows you to specify a per-tag language that overrides both the currently selected default language and that of the current page.</li>
+					</ul>
+				</li>
 			</ul>
 			<h3>1.0.0</h3>
 			<ul>
@@ -189,8 +202,8 @@
 			generate_toc:	true,
 			toc_el:			"#toc",
 			toc_title:		false,
-			min_depth:		2,
-			max_depth:		4
+			start_depth:		2,
+			end_depth:		4
 		});
 		$('a[rel="external"]').click( function() {
 			window.open( $(this).attr('href') );
