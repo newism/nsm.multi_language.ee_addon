@@ -101,26 +101,26 @@
 			<pre><code>&#123;nsm_lang_title&#125;</code></pre>
 			<p>The current language in a human readable format eg: 'English (United States)', 'French' etc</p>
 
-			<h3 id='tag-reference.nsm_multi_language.translate' class='tag'><code>&#123;exp:nsm_multi_language:translate&#125;</code></h3>
+			<h3 id='tag-reference.exp:nsm_multi_language:translate' class='tag'><code>&#123;exp:nsm_multi_language:translate&#125;</code></h3>
 			<pre><code>&#123;exp:nsm_multi_language:translate <a href="#nsm-multi_language-parameters-key">key</a> [, <a href="#nsm-multi_language-parameters-default">default</a>, <a href="#nsm-multi_language-parameters-language">language</a>]&#125;</code></pre>
 			<p>Requires the "key" parameter. If the language file contains the value of "key", it is translated. If no translation is available, the optional "default" parameter will be rendered. If that is not available, the original value of the "key" parameter will be rendered.</p>
 		
 			
-			<h4 id="tag-reference.nsm_multi_language.translate.parameters">Parameters</h4>
+			<h4 id="tag-reference.exp:nsm_multi_language:translate.parameters">Parameters</h4>
 			<ol>
-			    <li><a href="#tag-reference.nsm_multi_language.translate.parameters.key">key</a></li>
-			    <li><a href="#tag-reference.nsm_multi_language.translate.parameters.default">default</a></li>
-			    <li><a href="#tag-reference.nsm_multi_language.translate.parameters.language">language</a></li>
+			    <li><a href="#tag-reference.exp:nsm_multi_language:translate.parameters.key">key</a></li>
+			    <li><a href="#tag-reference.exp:nsm_multi_language:translate.parameters.default">default</a></li>
+			    <li><a href="#tag-reference.exp:nsm_multi_language:translate.parameters.language">language</a></li>
 			</ol>
-			<h5 id="tag-reference.nsm_multi_language.translate.parameters.key">key <small>[required]</small></h5>
+			<h5 id="tag-reference.exp:nsm_multi_language:translate.parameters.key">key <small>[required]</small></h5>
 			<pre><code>key="The phrase you would like translated"</code></pre>
 			<p>The key for the phrase you would like translated. The key must have an entry in the language file to be translated. <em>This parameter is required.</em></p>
-			<h5 id="tag-reference.nsm_multi_language.translate.parameters.default">default <small>[optional]</small></h5>
+			<h5 id="tag-reference.exp:nsm_multi_language:translate.parameters.default">default <small>[optional]</small></h5>
 			<pre><code>default="A default phrase, just in case."</code></pre>
 			<p>A default phrase that will be used if there is no valid translation for the requested language. <em>This parameter is optional.</em></p>
-			<h5 id="tag-reference.nsm_multi_language.translate.parameters.language">language <small>[optional]</small></h5>
+			<h5 id="tag-reference.exp:nsm_multi_language:translate.parameters.language">language <small>[optional]</small></h5>
 			<pre><code>language="en-US"</code></pre>
-			<p>Setting this parameter will force the current usage of the <code>&#123;exp:nsm_multi_language:translate&#125;</code> to output in the specified language. If the entered code does not exist, the <a href="#configuration.extension-settings.default-language">default language</a> will be used instead. <em>This parameter is optional.</em></p>
+			<p>Setting this parameter will force the current usage of the <code><a href="#tag-reference.exp:nsm_multi_language:translate">&#123;exp:nsm_multi_language:translate&#125;</a></code> to output in the specified language. If the entered code does not exist, the <a href="#configuration.extension-settings.default-language">default language</a> will be used instead. <em>This parameter is optional.</em></p>
 			<h4>Examples</h4>
 			<h5>Translate a simple phrase in the current language</h5>
 			<pre><code>&#123;exp:nsm_multi_language:translate key="welcome_message" &#125;</code></pre>
