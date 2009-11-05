@@ -12,7 +12,7 @@
 
 /**
  * Plugin information used by ExpressionEngine
- * @global array $plugin_info
+ * @global array information about this plugin
  */
 $plugin_info = array(
 	'pi_name'			=> 'NSM Multi Language',
@@ -28,6 +28,7 @@ $plugin_info = array(
  *
  * @package Nsm_multi_language
  * @version 2.0.0
+ * @since 1.0.0
  * @author Leevi Graham & Tony Arnold <http://newism.com.au>
  * @copyright Copyright (c) 2007-2009 Newism
  * @license Commercial - please see LICENSE file included with this distribution
@@ -35,33 +36,44 @@ $plugin_info = array(
  **/
 class Nsm_multi_language
 {
+	/**
+	 * Version number of this plugin. Should be in the format "x.x.x", with only integers used.
+	 * @version		2.0.0
+	 * @since		Version 1.0.0
+	 * @access		public
+	 * @var			string
+	 **/
+	public $version = "2.0.0";
 
 	/**
-	* Returned string
-	* @var array
-	*/
-	public $return_data = "";
-
-	/**
-	* Plugin version
-	* @var array
-	*/
-	public $version = "2.0a1";
-
-	/**
-	* settings
-	* @var array
-	*/
+	 * Defines the default settings for an initial installation of this extension.
+	 * @version		2.0.0
+	 * @since		Version 1.0.0
+	 * @access		private
+	 * @var			array an array of keys and values
+	 **/
 	public $settings = array();
 
 	/**
-	* PHP 5 Constructor
-	*/
+	 * PHP5 constructor function.
+	 * @version		1.0.0
+	 * @since		Version 1.0.0
+	 * @access		public
+	 * @param		array	$settings	an array of settings used to construct a new instance of this class.
+	 * @return 		void
+	 **/
 	public function __construct($settings='')
 	{
 		$this->EE =& get_instance();
 	}
 
+	/**
+	 * Translates keys in the content being processed by this plugin.
+	 * @version		2.0.0
+	 * @since		Version 1.0.0
+	 * @access		public
+	 * @return 		string	the translated string content
+	 **/
 	public function translate()
 	{
 		$translation_key = $this->EE->TMPL->fetch_param('key');
@@ -114,10 +126,12 @@ class Nsm_multi_language
 	}
 
 	/**
-	 * Plugin usage documentation
-	 *
-	 * @return	string Plugin usage instructions
-	 */
+	 * Usage documentation for this plugin.
+	 * @version		2.0.0
+	 * @since		Version 1.0.0
+	 * @access		public
+	 * @return 		string	usage documentation for this plugin
+	 **/
 	public function usage()
 	{
 		return "For usage please see the documentation attached to the original download for this extension.";
