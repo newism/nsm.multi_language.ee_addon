@@ -95,7 +95,7 @@
 			<h2 id='tag-reference'>Tag Reference</h2>
 			<h3 id='tag-reference.global-variables'>Global Variables</h3>
 			<p>NSM Multi Language sets three global variables: <code>&#123;nsm_lang&#125;</code> &amp; <code>&#123;nsm_lang_title&#125;</code></code> that are rendered before any other tags.</p>
-			<p> These global variables can be used to create dynamic template tags like <code>&#123;body_&#123;nsm_lang&#125;&#125;</code> and <code>&#123;title_&#123;nsm_lang&#125;&#125;</code> (See: Translating weblog content).</p>
+			<p> These global variables can be used to create dynamic template tags like <code>&#123;body_&#123;nsm_lang&#125;&#125;</code> and <code>&#123;title_&#123;nsm_lang&#125;&#125;</code> (See: <a href="#how-to_tutorials.translate-channel-entries.output-content">Displaying language specific content</a>).</p>
 
 			<pre><code>&#123;nsm_lang&#125;</code></pre>
 			<p>The current language code eg: 'en-US', 'fr' etc</p>
@@ -140,14 +140,16 @@
 			<h2 id="how-to_tutorials">How to / tutorials</h2>
 			<h3 id="how-to_tutorials.translate">Translate short phrases</h3>
 			<p>Translating short phrases is achieved using the <code>&#123;exp:nsm_multi_language:translate&#125;</code> tag.</p>
-			<p>The tag requires the <code>key</code> parameter which is used to look up the translated string in the current language's language file. A default value can also be passed which is used if the key cannot be found.</p>
+			<p>The tag requires the <code><a href="#tag-reference.nsm_multi_language.translate.parameters.key">key</a></code> parameter which is used to look up the translated string in the current language's language file. A default value can also be passed which is used if the key cannot be found.</p>
 
-			<h3 id="how-to_tutorials">Translate weblog entries</h3>
-			<h4 title="Create custom fields">Create custom fields for each language</h4>
+			<h3 id="how-to_tutorials.translate-channel-entries">Translate channel entries</h3>
+			<p>Another approach to managing translations is to attach language-specific custom fields to your channels. The basic concept is that users will be able to open a single channel entry to edit all translations for that entry, and the correct translation will be dynamically extracted by the template at render time.</p>
+			<p>This approach does not require entries in the language files, as the translated content is stored in the channel entries themselves.</p>
+			<h4 title="Create custom fields" id="how-to_tutorials.translate-channel-entries.create-custom-fields">Create custom fields for each language</h4>
 			<p>The preferred method of entering multiple language data is to use a multiple custom fields in a single entry.</p>
 			<ol>
-				<li>Create a new weblog called "Blog"</li>
-				<li>Create a new custom field group with the following two custom fields and assign it to a weblog:
+				<li>Create a new channel called "Blog"</li>
+				<li>Create a new custom field group with the following two custom fields and assign it to a channel:
 					<ol>
 						<li><strong>English</strong> content:
 							<ul>
@@ -165,11 +167,15 @@
 						</li>
 					</ol>
 				</li>
-				<li>Assign the custom field group to the "Blog" weblog</li>
+				<li>Assign the custom field group to the "Blog" channel</li>
 				<li>Publish a new entry adding both English and French content</li>
 			</ol>
-			<h4 title="Output content">Displaying language specific content</h5>
-			<p><em>To be completed.</em></p>
+			<h4 title="Output content" id="how-to_tutorials.translate-channel-entries.output-content">Displaying language specific content</h4>
+			<p>In your templates, you can specify language specific content by using dynamic tags like so:</p>
+			<pre><code>&#123;body_&#123;nsm_lang&#125;&#125;</code></pre>
+			<p>When the template is compiled for display, <code>&#123;nsm_lang&#125;</code> will be replaced by the current language ID. For example: If the user was accessing the page via:</p>
+			<pre><code>http://HOST_URL/en-US/some-page/</code></pre>
+			<p><code>&#123;body_&#123;nsm_lang&#125;&#125;</code> would become <code>&#123;body_en-US&#125;</code> in your template, resulting in the content of the channel field of the same name being output.</p>
 			
 			
 			<h2 id='change-log'>Change Log</h2>
