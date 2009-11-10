@@ -271,7 +271,7 @@ class Nsm_multi_language_ext
 				$requested_language_id = $default_language_id;
 			}
 
-			if($subdomain_language_file_exists !== TRUE)
+			if($subdomain_language_file_exists === TRUE)
 			{
 				// The following code modifies the incoming URI that the user has requested to remove the first path segment
 				//	(which we've already identified as matching one of our specified languages).
