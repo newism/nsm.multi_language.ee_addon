@@ -365,7 +365,15 @@ class Nsm_multi_language_ext
 	 **/
 	protected function _saveSettingsToDatabase($settings)
 	{
-		$this->EE->db->query($DB->update_string('exp_extensions', array('settings' => serialize($settings)), array('class' => __CLASS__)));
+		$query = $this->EE->db->update_string(
+			'exp_extensions', 
+			array(
+				'settings' => serialize($settings)
+			), 
+			array('class' => __CLASS__)
+		);
+		
+		$this->EE->db->query($query);
 	}
 
 	/**
