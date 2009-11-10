@@ -256,7 +256,9 @@ class Nsm_multi_language_ext
 			{
 				// We don't have a language file for either the URI, or the subdomain - short circuit and set to the user-defined default
 				$default_language_id = $this->settings['default_language'];
+
 				$file_path = $this->settings['languages_path'] . '/' . $default_language_id . '.php';
+
 				$default_language_file_exists = file_exists($file_path);
 
 				if ($default_language_file_exists !== TRUE)
@@ -308,7 +310,7 @@ class Nsm_multi_language_ext
 			include_once($file_path);
 			$this->EE->config->_global_vars['nsm_lang'] = $requested_language_id;
 			$this->EE->config->_global_vars['nsm_lang_title'] = isset($language_info['name']) ? $language_info['name'] : $requested_language_id;
-			$sess->userdata['nsm_lang_path'] = $this->settings['languages_path'];
+			$sess->cache['nsm']['multi_language']['lang_path'] = $this->settings['languages_path'];
 			$sess->cache['nsm']['multi_language']['languages'][$requested_language_id] = $LANG;
 		}
 	}

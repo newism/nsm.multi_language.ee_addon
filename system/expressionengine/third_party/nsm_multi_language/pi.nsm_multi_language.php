@@ -90,7 +90,7 @@ class Nsm_multi_language
 			{
 				// Load the dictionary from disk
 				// Load the translation from disk
-				$language_path = $this->EE->session->userdata('nsm_lang_path');
+				$language_path = $this->EE->session->cache['nsm']['multi_language']['lang_path'];
 
 				if ($language_path !== FALSE)
 				{
