@@ -141,7 +141,7 @@ class Nsm_multi_language_ext
 	 **/
 	public function activate_extension()
 	{
-		$this->_registerHooks();
+		$this->_createHooks();
 	}
 
 	/**
@@ -153,7 +153,7 @@ class Nsm_multi_language_ext
 	 **/
 	public function disable_extension()
 	{
-		$this->_unregisterHooks();
+		$this->_deleteHooks();
 	}
 
 	/**
