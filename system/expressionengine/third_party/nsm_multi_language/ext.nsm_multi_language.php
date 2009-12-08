@@ -113,19 +113,24 @@ class Nsm_multi_language_ext
 	 * @access		public
 	 * @param		array	$settings	an array of settings used to construct a new instance of this class.
 	 * @return 		void
+	 * 
+	 * Settings are not passed to the constructor for the following methods:
+	 *     - settings_form
+	 *     - activate_extension
+	 *     - update_extension
 	 **/
-	public function __construct($settings='')
+	public function __construct($settings=FALSE)
 	{
 		$this->EE =& get_instance();
 
 		// define a constant for the current site_id rather than calling $PREFS->ini() all the time
 		if(defined('SITE_ID') == FALSE)
-		{
 			define('SITE_ID', $this->EE->config->item('site_id'));
-		}
 
+		// set the settings for all other methods to access
 		$this->settings = ($settings == FALSE) ? $this->_getSettings() : $this->_saveSettingsToSession($settings);
 	}
+
 
 	/**
 	 * Called by ExpressionEngine when the user activates the extension.
