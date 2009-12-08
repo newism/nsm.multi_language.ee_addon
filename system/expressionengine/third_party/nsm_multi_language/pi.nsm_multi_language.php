@@ -4,7 +4,7 @@
  *
  * @package Nsm_multi_language
  * @version 2.0.0
- * @author Leevi Graham & Tony Arnold <http://newism.com.au>
+ * @author Leevi Graham <http://newism.com.au>
  * @copyright Copyright (c) 2007-2009 Newism
  * @license Commercial - please see LICENSE file included with this distribution
  * 
@@ -17,7 +17,7 @@
 $plugin_info = array(
 	'pi_name'			=> 'NSM Multi Language',
 	'pi_version'		=> '2.0.0',
-	'pi_author'			=> 'Leevi Graham & Tony Arnold',
+	'pi_author'			=> 'Leevi Graham',
 	'pi_author_url'		=> 'http://newism.com.au/',
 	'pi_description'	=> 'Translates phrases to the chosen language',
 	'pi_usage'			=> Nsm_multi_language::usage()
@@ -29,7 +29,7 @@ $plugin_info = array(
  * @package Nsm_multi_language
  * @version 2.0.0
  * @since 1.0.0
- * @author Leevi Graham & Tony Arnold <http://newism.com.au>
+ * @author Leevi Graham <http://newism.com.au>
  * @copyright Copyright (c) 2007-2009 Newism
  * @license Commercial - please see LICENSE file included with this distribution
  * 

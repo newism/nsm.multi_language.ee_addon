@@ -5,7 +5,7 @@
  * 
  * @package Nsm_multi_language
  * @version 2.0.0
- * @author Leevi Graham & Tony Arnold <http://newism.com.au>
+ * @author Leevi Graham  <http://newism.com.au>
  * @copyright Copyright (c) 2007-2009 Newism
  * @license Commercial - please see LICENSE file included with this distribution
  **/
