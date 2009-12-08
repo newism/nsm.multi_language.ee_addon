@@ -37,13 +37,22 @@ $plugin_info = array(
 class Nsm_multi_language
 {
 	/**
+	 * Display name for this extension.
+	 * @version		2.0.0
+	 * @since		Version 1.0.0
+	 * @access		public
+	 * @var			string
+	 **/
+	private $addon_name = 'NSM Multi Language';
+
+	/**
 	 * Version number of this plugin. Should be in the format "x.x.x", with only integers used.
 	 * @version		2.0.0
 	 * @since		Version 1.0.0
 	 * @access		public
 	 * @var			string
 	 **/
-	public $version = "2.0.0";
+	public $version = "2.0.0a1";
 
 	/**
 	 * Defines the default settings for an initial installation of this plugin.
