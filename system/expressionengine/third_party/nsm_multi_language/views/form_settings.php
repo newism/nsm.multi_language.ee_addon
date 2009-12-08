@@ -41,28 +41,16 @@
 				<th scope="row">
 					<?= lang('nsm_multi_language_default_language_label')?>
 				</th>
-				<td<?form_error('Nsm_multi_language_ext[default_language]') ? ' class="error"' : ''?>>
+				<td<?= form_error('Nsm_multi_language_ext[default_language]') ? ' class="error"' : ''?>>
 					<?= form_error('Nsm_multi_language_ext[languages]'); ?>
 					<select name="Nsm_multi_language_ext[default_language]" id='default_language' class='toggle'>
 						<?php
 							$count = 0;
-
-							foreach ($languages as $language)
-							{
-								$current_file_is_default_lang = FALSE;
-								if (!isset($settings['default_language']) AND $count == 0)
-								{
-									$current_file_is_default_lang = TRUE;
-								}
-								else
-								{
-									$current_file_is_default_lang = (($language['id'] == $settings['default_language']) === TRUE);
-								}
-								?><option value="<?= $language['id'] ?>"<?= $current_file_is_default_lang === TRUE ? ' selected="selected"' : '' ?>><?= isset($language['name']) ? $language['name'] : $language['id'] ?></option><?php
-
-								$count++;
-							}
+							foreach ($languages as $language) :
+								$selected = ($settings['default_language'] == $language["id"]) ? " selected='selected'" : "";
 						?>
+							<option value="<?= $language['id'] ?>"<?= $selected; ?>><?= isset($language['name']) ? $language['name'] : $language['id'] ?></option>
+						<?php endforeach; ?>
 					</select>
 				</td>
 			</tr>
@@ -71,7 +59,7 @@
 					<?= lang('nsm_multi_language_languages_path_label', 'languages_path_label') ?>
 				</th>
 				<td>
-					<input type="text" name="Nsm_multi_language_ext[languages_path]" value="<?= $settings['languages_path'] ?>" id="languages_path"/>
+					<input type="text" name="Nsm_multi_language_ext[languages_path]" value="<?= $settings['languages_path'] ?>" id="languages_path" style="width:500px" />
 				</td>
 			</tr>
 
