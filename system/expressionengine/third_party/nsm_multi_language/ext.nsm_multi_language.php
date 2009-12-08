@@ -50,7 +50,7 @@ class Nsm_multi_language_ext
 	 * @access		public
 	 * @var			string
 	 **/
-	public $version = '2.0.0';
+	public $version = '2.0.0a1';
 
 	/**
 	 * Link to documentation for this extension.
