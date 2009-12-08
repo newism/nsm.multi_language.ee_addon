@@ -8,7 +8,6 @@ Unless you have been granted prior, written consent from Newism Pty Ltd, you may
  * Grant rights to any other person.
  * Use the Software in violation of any Australian or international law or regulation.
 
-
 Display of Copyright Notices
 ============================
 
