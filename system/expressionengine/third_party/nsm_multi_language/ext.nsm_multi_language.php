@@ -59,7 +59,7 @@ class Nsm_multi_language_ext
 	 * @access		public
 	 * @var			string
 	 **/
-	public $docs_url = 'http://newism.com.au/nsm-multi-language/';
+	public $docs_url = '';
 
 	/**
 	 * The XML auto-update URL for LG Auto Updater.
@@ -68,7 +68,7 @@ class Nsm_multi_language_ext
 	 * @access		public
 	 * @var			string
 	 **/
-	public $versions_xml = 'http://newism.com.au/nsm-multi-language/versions.xml';
+	public $versions_xml = 'https://github.com/newism/nsm.multi_language.ee_addon/raw/master/expressionengine/system/third_party/nsm_multi_language/versions.xml';
 
 	/**
 	 * Defines the ExpressionEngine hooks that this extension will intercept.
