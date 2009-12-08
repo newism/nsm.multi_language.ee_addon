@@ -21,8 +21,5 @@ read ee_system_folder
 
 cd "$dirname"
 echo "Changed working directory to $dirname"
-ln -s "$dirname/system/expressionengine/third_party/nsm_multi_language" "$ee_system_folder/expressionengine/third_party/nsm_multi_language"
-echo "Linked \"$ee_system_folder/expressionengine/third_party/nsm_multi_language\""
 ln -s "$dirname/system/expressionengine/language/nsm_multi_language" "$ee_system_folder/expressionengine/language/nsm_multi_language"
 echo "Linked \"$ee_system_folder/expressionengine/language/nsm_multi_language\""
-
