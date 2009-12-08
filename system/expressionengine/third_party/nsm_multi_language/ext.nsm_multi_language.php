@@ -215,23 +215,25 @@ class Nsm_multi_language_ext
 	 **/
 	public function sessions_start(&$sess)
 	{
-		// Setup blank global variables
-		$this->EE->input->_global_vars['nsm_lang'] = '';
-		$this->EE->input->_global_vars['nsm_lang_title'] = '';
-
-		// Create an empty array for the language files
-		$sess->cache['nsm']['multi_language']['languages'] = array();
+		// // Setup blank global variables
+		$this->EE->input->_global_vars['nsm_lang'] = FALSE;
+		$this->EE->input->_global_vars['nsm_lang_title'] = FALSE;
 
 		// Is this a page request?
 		if (REQ == 'PAGE')
 		{
-			$requested_language_id = FALSE;
+			// // Create an empty array for the language files
+			$this->settings['languages'] = array();
 
+			$requested_language_id = FALSE;
+			$language_folder_path = $this->settings['languages_path'] . '/';
+
+			// files exist set to FALSE until proven otherwise
 			$subdomain_language_file_exists = FALSE;
-			$uri_used_first_component = TRUE;
 			$uri_language_file_exists = FALSE;
 			$default_language_file_exists = FALSE;
 
+			// Parse the current URL
 			$http_host = $this->EE->input->server('HTTP_HOST');
 			$http_host_url_parts = parse_url($http_host);
 			$current_subdomain_parts = explode(".", $http_host_url_parts['path']);
@@ -242,33 +244,19 @@ class Nsm_multi_language_ext
 			$subdomain_language_file_exists = file_exists($file_path);
 
 			// If not, check for the URI component file
-			if ($subdomain_language_file_exists !== TRUE)
+			if ($subdomain_language_file_exists === FALSE)
 			{
 				$first_uri_component = $this->EE->uri->segment(1);
-				$file_path = $this->settings['languages_path'] . '/' . $first_uri_component . '.php';
-				$subdomain_language_file_exists = FALSE;
+				$file_path = $this->settings['languages_path'] . $first_uri_component . '.php';
 				$uri_language_file_exists = file_exists($file_path);
 				$requested_language_id = $first_uri_component;
-
-				// If the first URL component doesn't exist, try the last
-				if ($uri_language_file_exists !== TRUE)
-				{
-					$uri_used_first_component = FALSE;
-					$last_uri_component = $this->EE->uri->segment($this->EE->uri->total_segments());
-					$file_path = $this->settings['languages_path'] . '/' . $first_uri_component . '.php';
-					$subdomain_language_file_exists = FALSE;
-					$uri_language_file_exists = file_exists($file_path);
-					$requested_language_id = $first_uri_component;
-				}
 			}
 
 			if ($uri_language_file_exists !== TRUE AND $subdomain_language_file_exists !== TRUE)
 			{
 				// We don't have a language file for either the URI, or the subdomain - short circuit and set to the user-defined default
 				$default_language_id = $this->settings['default_language'];
-
-				$file_path = $this->settings['languages_path'] . '/' . $default_language_id . '.php';
-
+				$file_path = $this->settings['languages_path'] . $default_language_id . '.php';
 				$default_language_file_exists = file_exists($file_path);
 
 				if ($default_language_file_exists !== TRUE)
@@ -280,19 +268,12 @@ class Nsm_multi_language_ext
 				$requested_language_id = $default_language_id;
 			}
 
-			if($subdomain_language_file_exists === TRUE)
+			if($uri_language_file_exists === TRUE)
 			{
 				// The following code modifies the incoming URI that the user has requested to remove the first path segment
 				//	(which we've already identified as matching one of our specified languages).
 				$uri_segments = $this->EE->uri->segment_array();
-				if ($uri_used_first_component === TRUE)
-				{
-					array_shift($uri_segments);
-				}
-				else
-				{
-					array_pop($uri_segments);
-				}
+				array_shift($uri_segments);
 				$this->EE->uri->segments = $uri_segments;
 
 				$this->EE->router->_validate_request($uri_segments);
@@ -320,9 +301,9 @@ class Nsm_multi_language_ext
 			include_once($file_path);
 			$this->EE->config->_global_vars['nsm_lang'] = $requested_language_id;
 			$this->EE->config->_global_vars['nsm_lang_title'] = isset($language_info['name']) ? $language_info['name'] : $requested_language_id;
-			$sess->cache['nsm']['multi_language']['lang_path'] = $this->settings['languages_path'];
-			$sess->cache['nsm']['multi_language']['languages'][$requested_language_id] = $LANG;
+			$this->settings['languages'][$requested_language_id] = $LANG;
 		}
+		$this->_saveSettingsToSession($this->settings, $sess);
 	}
 
 
@@ -332,26 +313,24 @@ class Nsm_multi_language_ext
 	// ===============================
 
 	/**
-	 * Returns the settings from the session. If the settings are not currently in the session, they are loaded from the database.
+	 * Saves the specified settings array to the database.
 	 * @version		1.0.0
 	 * @since		Version 1.0.0
-	 * @access		private
-	 * @param		boolean	$refresh	if this is set to TRUE, the settings stored in the session will be cleared, and reloaded from the database. Defaults to TRUE.
-	 * @return		array		current settings for this extension
+	 * @access		protected
+	 * @param		array	$settings	an array of settings to save to the database.
+	 * @return		void
 	 **/
 	private function _getSettings($refresh = FALSE)
 	{
 		$settings = FALSE;
-		if (isset($this->EE->session->cache[$this->addon_name][__CLASS__]['settings']) === FALSE OR $refresh === TRUE)
+		if(isset($this->EE->session->cache[$this->addon_name][__CLASS__]['settings']) === FALSE || $refresh === TRUE)
 		{
-			$settings_query = $this->EE->db->query("SELECT `settings`
-													FROM `exp_extensions`
-													WHERE `enabled` = 'y'
-													AND `class` = '".__CLASS__."'
-													LIMIT 1"
-												);
-
-			if ($settings_query->num_rows())
+			$settings_query = $this->EE->db->select('settings')
+			                               ->where('enabled', 'y')
+			                               ->where('class', __CLASS__)
+			                               ->get('extensions', 1);
+			                               
+			if($settings_query->num_rows())
 			{
 				$settings = unserialize($settings_query->row()->settings);
 				$this->_saveSettingsToSession($settings);
@@ -372,17 +351,10 @@ class Nsm_multi_language_ext
 	 * @param		array	$settings	an array of settings to save to the database.
 	 * @return		void
 	 **/
-	protected function _saveSettingsToDatabase($settings)
+	private function _saveSettingsToDB($settings)
 	{
-		$query = $this->EE->db->update_string(
-			'exp_extensions', 
-			array(
-				'settings' => serialize($settings)
-			), 
-			array('class' => __CLASS__)
-		);
-		
-		$this->EE->db->query($query);
+		$this->EE->db->where('class', __CLASS__)
+		             ->update('extensions', array('settings' => serialize($settings)));
 	}
 
 	/**
@@ -390,12 +362,24 @@ class Nsm_multi_language_ext
 	 * @version		1.0.0
 	 * @since		Version 1.0.0
 	 * @access		protected
-	 * @param		array	$settings	an array of settings to save to the session.
+	 * @param		array		$settings	an array of settings to save to the session.
+	 * @param		array		$sess		A session object
 	 * @return		array		the provided settings array
 	 **/
-	protected function _saveSettingsToSession($settings)
+	private function _saveSettingsToSession($settings, &$sess = FALSE)
 	{
-		$this->EE->session->cache[$this->addon_name][__CLASS__]['settings'] = $settings;
+		// if there is no $sess passed and EE's session is not instaniated
+		if($sess == FALSE && isset($this->EE->session->cache) == FALSE)
+			return $settings;
+
+		// if there is an EE session available and there is no custom session object
+		if($sess == FALSE && isset($this->EE->session) == TRUE)
+			$sess =& $this->EE->session;
+
+		// Set the settings in the cache
+		$sess->cache[$this->addon_name][__CLASS__]['settings'] = $settings;
+
+		// return the settings
 		return $settings;
 	}
 
@@ -408,7 +392,7 @@ class Nsm_multi_language_ext
 	 * @return		void
 	 * @see 		http://codeigniter.com/user_guide/general/hooks.html
 	 **/
-	private function _registerHooks($hooks = FALSE)
+	private function _createHooks($hooks = FALSE)
 	{
 		if (!$hooks)
 		{
@@ -422,7 +406,7 @@ class Nsm_multi_language_ext
 		);
 
 		// Setup our default path
-		$hook_template['settings']['languages_path'] = APPPATH . 'language/nsm_multi_language';
+		$hook_template['settings']['languages_path'] = APPPATH . 'language/nsm_multi_language/';
 
 		foreach ($hooks as $key => $hook)
 		{
@@ -451,7 +435,7 @@ class Nsm_multi_language_ext
 	 * @return		void
 	 * @see 		http://codeigniter.com/user_guide/general/hooks.html
 	 **/
-	private function _unregisterHooks()
+	private function _deleteHooks()
 	{
 		$this->EE->db->query("DELETE FROM `exp_extensions` WHERE `class` = '".__CLASS__."'");
 	}
@@ -463,16 +447,17 @@ class Nsm_multi_language_ext
 	 * @access		private
 	 * @return		array	keys and values describing the languages found in the user-defined languages directory
 	 */
-	private function _getLanguagesFromDisk()
+	private function _readLanguagesFromDisk()
 	{
 		$loaded_languages = array();
+
 		$lang_path = $this->settings['languages_path'];
 
 		if ($dir_handle = @opendir($lang_path))
 		{
 		    while (false !== ($path = readdir($dir_handle)))
 			{
-				if (is_dir($path) OR (substr($path,0,1) === '.')) continue;
+				if (is_dir($path) OR (substr($path,0,1) === '.') OR substr($path,-4) != EXT) continue;
 
 				$lang_id = str_replace('.php', '', $path);
 
@@ -500,9 +485,7 @@ class Nsm_multi_language_ext
 		} else {
 			// Raise an error appropriately
 			log_message('error', "Unable to open directory: {$lang_path}");
-
 		}
-
 		return $loaded_languages;
 	}
 
@@ -514,72 +497,72 @@ class Nsm_multi_language_ext
 	 * @param		string	$lang_id	identifier for the language you would like to retrieve
 	 * @return		array	keys and values describing the specified language
 	 */
-	private function _getLanguageDetailsFromDisk($lang_id)
-	{
-		if (isset($loaded_languages) !== TRUE) return;
-
-		$lang_path = $this->settings['languages_path'] . $lang_id . '.php';
-
-		if (file_exists($lang_path) === TRUE)
-		{
-			// Read the info from the file
-			@include_once($lang_path.'/'.$path);
-
-			if (isset($language_info) && is_array($language_info))
-			{
-				$loaded_languages[$lang_id] = array(
-					'id'			=> $lang_id,
-					'name'			=> $language_info['name'],
-					'version'		=> $language_info['version'],
-					'author'		=> $language_info['author'],
-					'author_url'	=> $language_info['author_url']
-				);
-			}
-			else
-			{
-				log_message('error', "Invalid Plugin Data: {$path}");
-			}
-
-			unset($language_info);
-		}
-
-
-		if ($dir_handle = opendir($lang_path))
-		{
-		    while (false !== ($path = readdir($dir_handle)))
-			{
-				if (is_dir($path) OR (substr($path,0,1) === '.')) continue;
-
-				$current_file_is_default_lang = FALSE;
-				$lang_id = str_replace('.php', '', $path);
-
-				@include_once($lang_path.'/'.$path);
-
-				if (isset($language_info) && is_array($language_info))
-				{
-					$loaded_languages[$lang_id] = array(
-						'id'			=> $lang_id,
-						'name'			=> $language_info['name'],
-						'version'		=> $language_info['version'],
-						'author'		=> $language_info['author'],
-						'author_url'	=> $language_info['author_url']
-					);
-				}
-				else
-				{
-					log_message('error', "Invalid Plugin Data: {$path}");
-				}
-
-				unset($language_info);
-		    }
-
-		    closedir($dir_handle);
-		} else {
-			// Raise an error appropriately
-			log_message('error', "Unable to open directory: {$lang_path}");
-		}
-
-		return $loaded_languages;
-	}
+	// private function _readLanguageDetailsFromDisk($lang_id)
+	// {
+	// 	if (isset($loaded_languages) !== TRUE) return;
+	// 
+	// 	$lang_path = $this->settings['languages_path'] . $lang_id . '.php';
+	// 
+	// 	if (file_exists($lang_path) === TRUE)
+	// 	{
+	// 		// Read the info from the file
+	// 		@include_once($lang_path.'/'.$path);
+	// 
+	// 		if (isset($language_info) && is_array($language_info))
+	// 		{
+	// 			$loaded_languages[$lang_id] = array(
+	// 				'id'			=> $lang_id,
+	// 				'name'			=> $language_info['name'],
+	// 				'version'		=> $language_info['version'],
+	// 				'author'		=> $language_info['author'],
+	// 				'author_url'	=> $language_info['author_url']
+	// 			);
+	// 		}
+	// 		else
+	// 		{
+	// 			log_message('error', "Invalid Plugin Data: {$path}");
+	// 		}
+	// 
+	// 		unset($language_info);
+	// 	}
+	// 
+	// 
+	// 	if ($dir_handle = opendir($lang_path))
+	// 	{
+	// 	    while (false !== ($path = readdir($dir_handle)))
+	// 		{
+	// 			if (is_dir($path) OR (substr($path,0,1) === '.') OR substr($path,-4) != ".php") continue;
+	// 
+	// 			$current_file_is_default_lang = FALSE;
+	// 			$lang_id = str_replace('.php', '', $path);
+	// 
+	// 			@include_once($lang_path.'/'.$path);
+	// 
+	// 			if (isset($language_info) && is_array($language_info))
+	// 			{
+	// 				$loaded_languages[$lang_id] = array(
+	// 					'id'			=> $lang_id,
+	// 					'name'			=> $language_info['name'],
+	// 					'version'		=> $language_info['version'],
+	// 					'author'		=> $language_info['author'],
+	// 					'author_url'	=> $language_info['author_url']
+	// 				);
+	// 			}
+	// 			else
+	// 			{
+	// 				log_message('error', "Invalid Plugin Data: {$path}");
+	// 			}
+	// 
+	// 			unset($language_info);
+	// 	    }
+	// 
+	// 	    closedir($dir_handle);
+	// 	} else {
+	// 		// Raise an error appropriately
+	// 		log_message('error', "Unable to open directory: {$lang_path}");
+	// 	}
+	// 
+	// 	return $loaded_languages;
+	// }
 
 } // END class Nsm_multi_language_ext

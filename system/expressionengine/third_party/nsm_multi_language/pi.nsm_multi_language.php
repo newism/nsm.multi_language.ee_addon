@@ -85,34 +85,38 @@ class Nsm_multi_language
 	 **/
 	public function translate()
 	{
+		// load the settings from the cache
+		$this->settings =& $this->EE->session->cache[$this->addon_name]['Nsm_multi_language_ext']['settings'];
+
+		// get the translation key
 		$translation_key = $this->EE->TMPL->fetch_param('key');
-		$languages_cache = isset($this->EE->session->cache['nsm']['multi_language']['languages']) ? $this->EE->session->cache['nsm']['multi_language']['languages'] : FALSE;
+
+		// figure out the requested language for this transaltion
 		$tag_requested_language = $this->EE->TMPL->fetch_param('language');
-		$ext_requested_language = isset($this->EE->config->_global_vars['nsm_lang']) ? $this->EE->config->_global_vars['nsm_lang'] : FALSE;
+		$ext_requested_language = $this->EE->config->_global_vars['nsm_lang'];
 		$requested_language_id = ($tag_requested_language !== FALSE) ? $tag_requested_language : $ext_requested_language;
 
-		if ($requested_language_id !== FALSE AND $languages_cache !== FALSE)
+		// if there is a requested language 
+		if ($requested_language_id !== FALSE)
 		{
-			$requested_language_dictionary = isset($languages_cache[$requested_language_id]) ? $languages_cache[$requested_language_id] : FALSE;
+			// do we have a language dictionary stored in the settings?
+			$requested_language_dictionary = isset($this->settings['languages'][$requested_language_id]) ? $this->settings['languages'][$requested_language_id] : FALSE;
 
+			// no?
 			if ($requested_language_dictionary === FALSE)
 			{
 				// Load the dictionary from disk
-				// Load the translation from disk
-				$language_path = $this->EE->session->cache['nsm']['multi_language']['lang_path'];
-
-				if ($language_path !== FALSE)
+				if ($this->settings['languages_path'] !== FALSE)
 				{
-					$requested_language_file_path = $language_path . '/' . $requested_language_id . '.php';
+					$requested_language_file_path = $this->settings['languages_path'] . $requested_language_id . '.php';
 
 					if (file_exists($requested_language_file_path) !== FALSE)
 					{
 						include_once($requested_language_file_path);
-
 						if (isset($LANG))
 						{
-							$languages_cache[$requested_language_id] = $LANG;
-							$requested_language_dictionary = $languages_cache[$requested_language_id];
+							$this->settings['languages'][$requested_language_id] = $LANG;
+							$requested_language_dictionary = $this->settings['languages'][$requested_language_id];
 							unset($language_info);
 							unset($LANG);
 						}
@@ -121,13 +125,14 @@ class Nsm_multi_language
 			}
 
 			// and there is a language file with the translation
-			if (isset($requested_language_dictionary[$translation_key]))
+			if ($requested_language_dictionary != FALSE && isset($requested_language_dictionary[$translation_key]))
 			{
 				// return the translation
 				return $requested_language_dictionary[$translation_key];
 			}
 		}
 
+		// grab the default translation key
 		$default_translation_value = $this->EE->TMPL->fetch_param('default');
 
 		// No language file was found, so we'll return the "default" value if it's available,
