@@ -4,7 +4,6 @@
  * This file is responsible for displaying the user-configurable settings for the NSM Multi Language extension in the ExpressionEngine control panel.
  * 
  * @package Nsm_multi_language
- * @version 2.0.0
  * @author Leevi Graham  <http://newism.com.au>
  * @copyright Copyright (c) 2007-2009 Newism
  * @license Commercial - please see LICENSE file included with this distribution
