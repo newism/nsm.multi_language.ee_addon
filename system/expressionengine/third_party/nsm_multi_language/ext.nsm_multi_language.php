@@ -185,17 +185,19 @@ class Nsm_multi_language_ext
 
 		if($new_settings = $this->EE->input->post(__CLASS__))
 		{
+			if(substr($new_settings['languages_path'], -1) != "/")
+				$new_settings['languages_path'] .= "/";
+
 			$vars['settings'] = $new_settings;
-			$this->_saveSettingsToDatabase($new_settings);
+			$this->_saveSettingsToDB($new_settings);
 			$vars['message'] = $this->EE->lang->line('extension_settings_saved_success');
 		}
 
 		$vars['addon_name'] = $this->addon_name;
-		$vars['languages'] = $this->_getLanguagesFromDisk();
+		$vars['languages'] = $this->_readLanguagesFromDisk();
 
 		return $this->EE->load->view('form_settings', $vars, TRUE);
 	}
-
 
 
 	// ==================
