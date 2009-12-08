@@ -468,7 +468,7 @@ class Nsm_multi_language_ext
 		$loaded_languages = array();
 		$lang_path = $this->settings['languages_path'];
 
-		if ($dir_handle = opendir($lang_path))
+		if ($dir_handle = @opendir($lang_path))
 		{
 		    while (false !== ($path = readdir($dir_handle)))
 			{
