@@ -28,7 +28,7 @@ $plugin_info = array(
  *
  * @package Nsm_multi_language
  * @version 2.0.0
- * @since 1.0.0
+ * @since Version 1.0.0
  * @author Leevi Graham <http://newism.com.au>
  * @copyright Copyright (c) 2007-2009 Newism
  * @license Commercial - please see LICENSE file included with this distribution
@@ -38,7 +38,6 @@ class Nsm_multi_language
 {
 	/**
 	 * Display name for this extension.
-	 * @version		2.0.0
 	 * @since		Version 1.0.0
 	 * @access		public
 	 * @var			string
@@ -47,7 +46,6 @@ class Nsm_multi_language
 
 	/**
 	 * Version number of this plugin. Should be in the format "x.x.x", with only integers used.
-	 * @version		2.0.0
 	 * @since		Version 1.0.0
 	 * @access		public
 	 * @var			string
@@ -56,7 +54,6 @@ class Nsm_multi_language
 
 	/**
 	 * Defines the default settings for an initial installation of this plugin.
-	 * @version		2.0.0
 	 * @since		Version 1.0.0
 	 * @access		private
 	 * @var			array an array of keys and values
@@ -65,7 +62,7 @@ class Nsm_multi_language
 
 	/**
 	 * PHP5 constructor function.
-	 * @version		1.0.0
+	 * 
 	 * @since		Version 1.0.0
 	 * @access		public
 	 * @param		array	$settings	an array of settings used to construct a new instance of this class.
@@ -78,7 +75,6 @@ class Nsm_multi_language
 
 	/**
 	 * Translates keys in the content being processed by this plugin.
-	 * @version		2.0.0
 	 * @since		Version 1.0.0
 	 * @access		public
 	 * @return 		string	the translated string content
@@ -142,7 +138,6 @@ class Nsm_multi_language
 
 	/**
 	 * Usage documentation for this plugin.
-	 * @version		2.0.0
 	 * @since		Version 1.0.0
 	 * @access		public
 	 * @return 		string	usage documentation for this plugin
